@@ -108,19 +108,38 @@ def compress_string(my_str):
             current_ltr = my_str[char]
     res += (current_ltr + str(count))
     return res if len(res) < len(my_str) else my_str
-testCase = "abbcddddd"
-print(compress_string(testCase))
+# testCase = "abbcddddd"
+# print(compress_string(testCase))
 
 # Write a function partition_labels() that takes in a string s as a parameter. 
 # s consists of lowercase letters and represents the order of characters as they appear in a document. 
 # The function partitions s into as many parts as possible so that each unique letter appears in at most one part, 
 # and returns a list of integers representing the size of these parts.
 
-# Understand: We are splitting the list so that each unique letter occurences will appear in one part and return a list of integers
+# Understand: We are splitting the list so that each unique letter and their occurences will appear in one part and return a list of integers
 # with the size of these parts.
+# Plan: We will have two pointers that both start at the beginning of the string. One will stay and one will check every letter occurence
+# ahead to see where the split should occur. Once we split we will keep a count of the length to add to the array. Return the final array
+# when the string reaches the end.
 
 def partition_label(s):
-    pass
+    start, end = 0, 0 # Two pointers to track start adn end of partition
+    result = [] # Result list to keep lengths of partition
+    last_occurrence = {char: idx for idx, char in enumerate(s)} # Gives us most recent and last index of each character
+    
+    for i, char in enumerate(s): # For every index and char value in the string
+        end = max(end, last_occurrence[char]) # The end will equal the last occurence of the character we are on until...
+
+        if i == end: # Until our iteration ends up at that last occurence, meaning no occurences of characters in that part stretch forward
+            result.append(end - start + 1) # We then get the length by getting difference of end and start + 1 to account for zero-index
+            start = i + 1 # Start will then continue by going to the end of the partition + 1 to go into a new partition area of the string, repeating
+            # the process
+    return result # When the loop finishes and meets the last occurence at the end, return the result.
+s1 = "ababcbacadefegdehijhklij"
+print(partition_label(s1))
+
+s2 = "abcabcbadefffeda"
+print(partition_label(s2))
 
 
 
