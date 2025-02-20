@@ -72,3 +72,13 @@ def count_mississippi(limit):
 
 count_mississippi(5)
 
+# Write a function dict_difference() that takes two dictionaries and returns a new dictionary that 
+# contains only the key-value pairs found exclusively in the first dictionary but not in the second.
+
+def dict_difference(d1, d2):
+    return {k: d1[k] for k in d1 if k not in d2 or d1[k] != d2[k]}
+
+res = {'a': 1, 'b': 2, 'c': 3, 'd': 4}
+res1 = {'b': 2, 'd': 1}
+
+print(dict_difference(res, res1))
