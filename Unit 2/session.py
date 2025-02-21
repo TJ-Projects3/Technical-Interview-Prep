@@ -75,10 +75,48 @@ count_mississippi(5)
 # Write a function dict_difference() that takes two dictionaries and returns a new dictionary that 
 # contains only the key-value pairs found exclusively in the first dictionary but not in the second.
 
-def dict_difference(d1, d2):
-    return {k: d1[k] for k in d1 if k not in d2 or d1[k] != d2[k]}
+# def dict_difference(d1, d2):
+#     return {k: d1[k] for k in d1 if k not in d2 or d1[k] != d2[k]}
 
-res = {'a': 1, 'b': 2, 'c': 3, 'd': 4}
-res1 = {'b': 2, 'd': 1}
+# res = {'a': 1, 'b': 2, 'c': 3, 'd': 4}
+# res1 = {'b': 2, 'd': 1}
 
-print(dict_difference(res, res1))
+# print(dict_difference(res, res1))
+
+
+# Write a function pop_stock() that takes a dictionary of items items that keeps track of an item and its stock quantity, 
+# an item_name, and a quantity to be removed as parameters. The function should remove the specified quantity for that item.
+# If the item does not exist, return the string "Item does not exist." 
+# If the specified quantity is greater than the stock, return a string "Not enough stock."
+# If the specified item and quantity do exist within items, decrement the item's stock by the specified quantity and return the updated dictionary.
+
+# Understand: We are storing items with their name and price to a dictionary, we will handle edge cases if the item name isnt in the list, the quantity
+# asked for isnt enough, and more. If all things sufficient, we will decrement the count of the item in the dictionary by the requested quantity.
+# Plan: The dictionary is given, we will use if in and not in to handle edge cases and if everything is present, subtract by the quantity for our function.
+def pop_stock(items, item_name, quantity):
+    if item_name not in items:
+        return "Item does not exist"
+    else:
+        if quantity > items[item_name]:
+            return "Not enough stock"
+        else:
+            items[item_name] -= quantity
+            return items
+
+items = {"chocolate": 20, "candy": 5, "chips": 10}
+
+resultA = pop_stock(items, "candy", 2)
+print(resultA)
+resultB = pop_stock(items, "candy", 5)
+print(resultB)
+resultC = pop_stock(items, "lollipops", 5)
+print(resultC)
+resultD = pop_stock(items, "chocolate", 5)
+print(resultD)
+
+
+# {"chocolate": 20, "candy": 3, "chips": 10}
+# Not enough stock
+# Item does not exist
+# {"chocolate": 15, "candy": 3, "chips": 10}
+
