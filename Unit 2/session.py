@@ -120,3 +120,29 @@ print(resultD)
 # Item does not exist
 # {"chocolate": 15, "candy": 3, "chips": 10}
 
+# Write a function average_book_ratings(), that calculates the average rating for each book in a collection. 
+# The function takes one parameter: a dictionary book_ratings where each key-value pair represents a book title and a list of its ratings, respectively. 
+# Ratings are represented as floating-point numbers. The function should return a new dictionary with book titles as keys and their average rating.
+
+# Understand: We are asked to calculate the average rating of a book from a given dictionary which has the book name as the key, and a list of ratings
+# as its value. We must utilize the list to calculate average and create a new dictionary with book name key and average as its value pair.
+
+# Plan: For every key-value pair in the original dictionary, we will iterate through them while calculating the sum of each list value we get divided by
+# the length of that list, all this to get the average. We will then assign them accordingly with the book name in our new dictionary. When we finish,
+# we will return res.
+
+def average_book_ratings(book_ratings):
+    res = {} # Initialize new dictionary, sandwich
+    for k, v in book_ratings.items(): # Loop through each key value simultaneously using dict.items()
+        average = sum(v)/len(v) # Get average
+        res[k] = round(average, 1) # Assign book name to average in kv pair, round to nearest 2 decimal points.
+    return res # Return the dictionary, sandwich
+
+
+book_ratings_one = {
+    "The Great Gatsby": [4.5, 3.0, 5.0],
+    "To Kill a Mockingbird": [4.8, 5.0, 4.0, 4.9]
+}
+
+print(average_book_ratings(book_ratings_one))
+
