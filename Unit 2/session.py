@@ -49,6 +49,7 @@ def print_pair(dictionary, target):
         print("That pair does not exist!")
 
 dictionary = {"spongebob": "squarepants", "patrick": "star", "squidward": "tentacles"}
+
 # print_pair(dictionary, "patrick")
 # print_pair(dictionary, "plankton")
 # print_pair(dictionary, "spongebob")
@@ -124,19 +125,17 @@ print(resultD)
 # The function takes one parameter: a dictionary book_ratings where each key-value pair represents a book title and a list of its ratings, respectively. 
 # Ratings are represented as floating-point numbers. The function should return a new dictionary with book titles as keys and their average rating.
 
-# Understand: We are asked to calculate the average rating of a book from a given dictionary which has the book name as the key, and a list of ratings
-# as its value. We must utilize the list to calculate average and create a new dictionary with book name key and average as its value pair.
-
-# Plan: For every key-value pair in the original dictionary, we will iterate through them while calculating the sum of each list value we get divided by
-# the length of that list, all this to get the average. We will then assign them accordingly with the book name in our new dictionary. When we finish,
-# we will return res.
+# Understand: We are creating a new dictionary from an existing dictionary, using the key (book name), and value (list of ratings) from the original to create
+# a dictionary that has the book name key and instead of a list, it has the average rating from that list. Return the new dictionary
+# Plan: Create a for loop that loops through dict.items() so that we can iterate through key and value. For the new dictionary while in the for loop,
+# Assign book name to the key and calculate average by dividing total of the list by the length.
 
 def average_book_ratings(book_ratings):
-    res = {} # Initialize new dictionary, sandwich
-    for k, v in book_ratings.items(): # Loop through each key value simultaneously using dict.items()
-        average = sum(v)/len(v) # Get average
-        res[k] = round(average, 1) # Assign book name to average in kv pair, round to nearest 2 decimal points.
-    return res # Return the dictionary, sandwich
+    res = {}
+    for k, v in dict.items(book_ratings):
+        average = sum(v)/len(v) # v - list value
+        res[k] = round(average, 1) # k - book name, the key must stay
+    return res # After the loop, return new dictionary
 
 
 book_ratings_one = {
@@ -145,4 +144,98 @@ book_ratings_one = {
 }
 
 print(average_book_ratings(book_ratings_one))
+
+# Write a function restock_inventory() that updates an inventory dictionary based on a restock list. It accepts two parameters:
+# current_inventory: a dictionary where each key-value pair represents an item and its current stock in the inventory 
+# restock_list: a dictionary where each key-value pair represents an item and the quantity to be added to the inventory. 
+# If an item in restock_list is not present in the current_inventory, it should be added. The function should return the 
+# updated dictionary current_inventory.
+
+# Understand: We are updating the current_inventory with the restock_list, adding to the values of existing keys and adding keys from the restock_list
+# if they aren't already in the current_inventory
+# Plan: Create for loop using dict.items(restock_list), if k not in current_inventory add it, else add the value of that key
+# to the mapping in current stock.
+
+def restock_inventory(current_inventory, restock_list):
+    # Not creating anything new. Reading and updating to solve problem
+    for k, v in restock_list.items():
+        if k not in current_inventory:
+            current_inventory[k] = v
+        else:
+            current_inventory[k] += v
+    return current_inventory
+
+current_inventory1 = {
+    "apples": 30,
+    "bananas": 15,
+    "oranges": 10
+}
+
+restock_list1 = {
+    "oranges": 20,
+    "apples": 10,
+    "pears": 5
+}
+
+print(restock_inventory(current_inventory1, restock_list1))
+
+
+# Write a function hasDuplicates() that takes in a list of integers nums and a positive number k as parameters. 
+# The function returns True if the list contains any duplicate elements within the range 0 to k (inclusive). 
+# If k is greater than the list's length, the solution should check for duplicates in the complete list. The function should return False otherwise.
+
+# Understand: Within the range 0 to parameter k, return True if there are duplicate numbers within that range. Else return false.
+# If k is larger than list, focus on covering the whole length of the list
+# Plan: Use a set. We will iterate through a for loop for range 0 to k, if iterable is in the set already return True. Otherwise if we get through the
+# whole loop, return False because we found no duplicates in that specified range.
+
+def hasDuplicates(nums, k):
+    seen = set()
+
+    if k > len(nums):
+        k = len(nums)
+
+    for i in range(0, k):
+        if nums[i] in seen:
+            return True
+        seen.add(nums[i])
+    return False
+
+nums = [5, 6, 8, 2, 6, 4, 9]
+check1 = hasDuplicates(nums, 3)
+print(check1)
+check2 = hasDuplicates(nums, 5)
+print(check2)
+
+# Write a function divideList() that takes in an integer list nums consisting of 2*n integers as parameters.
+
+#  The function divides nums into n pairs such that:
+
+# Each element belongs to exactly one pair
+# The elements present in a pair are equal
+
+# Return True if nums can be divided into n pairs, otherwise return False.
+
+# Understand: We are given a list to divide into len(list)/2 pairs. If we can create pairs with the list, return True. Else, return False.
+# Plan: Sandwich pair_count integer. Create a counter dictionary (pair_dict) to get all occurences of each number in the list. Afterwards, 
+# create another for loop that iterates through this pair_dict and as we do so, add to the pair count res[i] hard divided by 2  (//)
+
+def divideList(nums):
+    pair_dict, pair_count = {}, 0
+    cut = len(nums) // 2
+
+    for i in nums:
+        pair_dict[i] = pair_dict.get(i, 0) + 1
+    
+    for i in pair_dict:
+        divide_pairs = pair_dict[i] // 2
+        pair_count += divide_pairs
+    
+    return True if pair_count == cut else False
+
+nums_example = [3,2,3,2,2,2]
+print(divideList(nums_example))
+
+
+	
 
