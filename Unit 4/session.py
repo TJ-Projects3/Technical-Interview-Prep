@@ -95,8 +95,21 @@ Explanation:
 """
 # We are looking to find the length of the longest consistent subarray. Consistent in terms of all frequencies of the subarray are equal.
 # We will use a sliding window strategy as we iterate through
-def max_length_consistent_subarray(userEvent):
-    pass
+# def max_length_consistent_subarray(userEvent):
+#     pass
+
+def reverse_list(lst):
+    left = 0
+    right = len(lst) - 1
+    while left < right:
+        lst[right], lst[left] = lst[left], lst[right]
+        left += 1
+        right -= 1
+    return lst
+
+nums_lst = [1,2,3,4,5]
+nums_one = [2,5,7,8,8]
+print(reverse_list(nums_one))
 
 
     
