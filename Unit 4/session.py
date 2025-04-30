@@ -112,4 +112,23 @@ nums_one = [2,5,7,8,8]
 print(reverse_list(nums_one))
 
 
+# Write a function num_of_subarrays() that takes in a list of integers nums and two integers k and threshold as parameters.
+# The function returns the number of subarrays of size k whose average is greater than or equal to threshold.
+# Understand: We are asked to the number of subarrays with size k that have an average greater than or equal to the threshold given.
+# Plan: We will use the sliding window algorithm, then we will get the sum of the window divided by its length to calculate the avg,
+# we will then check how avg compares to threshold and keep a number of subarrays that are greater than or equal to the threshold.
+
+def num_of_subarrays(lst, k, threshold):
+     subArr_count = 0
+     j = k - 1
+     for i in range(len(lst)-j):
+        window = lst[i:i+k]
+        avg = sum(window)//len(window)
+        if avg >= threshold:
+            subArr_count += 1
+     return subArr_count
+
+nums = [2,2,2,2,5,5,5,8]
+count = num_of_subarrays(nums, 3, 4)
+print(count)
     
