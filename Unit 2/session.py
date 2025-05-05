@@ -255,5 +255,15 @@ print(is_subsequence(lst_two, sequenceThree))
 # print(divideList(nums_example))
 
 
+def get_count(lst):
+    res = {}
+    for i in lst:
+        res[i] = res.get(i, 0) + 1
+    return res
+
+new_lst = [1,1,1,4,5,7,8,6,7]
+print(get_count(new_lst))
+
+
 	
 

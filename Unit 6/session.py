@@ -130,6 +130,8 @@ print(dict_difference(d1,d2))
 # Given the head of a linked list, return a dictionary that maps each unique element in the list to its frequency.
 # Evaluate the time and space complexity of your solution. Define your variables and provide a rationale for why you believe your solution
 # has the stated time and space complexity.
+# Plan: We will traverse through each element in the linked list and append each value to res using res.get(i, 0) + 1 as we get there.
+
 
 class Node:
 	def __init__(self, value, next=None):
@@ -137,7 +139,15 @@ class Node:
 		self.next = next
 
 def frequency_map(head):
-	pass
+     res = {}
+     current = head
+     while current:
+           res[current.value] = res.get(current.value, 0) + 1
+           current = current.next
+     return res
+
+head_land = Node(1, Node( 2, Node(2, Node(3, Node(3, Node(1))))))
+print(frequency_map(head_land))
 
 
 
