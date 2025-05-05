@@ -118,8 +118,8 @@ that contains only the key-value pairs found exclusively in the first dictionary
 def dict_difference(d1, d2):
     d3 = {}
     for val in d1:
-        if d1[val] not in d2:
-            d3[val]     
+        if val not in d2:
+            d3[val] = d1[val]     
     return d3
 
 d1 = {'a': 1, 'b': 2, 'c': 3, 'd': 4}
@@ -127,7 +127,17 @@ d2 = {'b': 2, 'd': 1}
 
 print(dict_difference(d1,d2))
 
+# Given the head of a linked list, return a dictionary that maps each unique element in the list to its frequency.
+# Evaluate the time and space complexity of your solution. Define your variables and provide a rationale for why you believe your solution
+# has the stated time and space complexity.
 
+class Node:
+	def __init__(self, value, next=None):
+		self.value = value
+		self.next = next
+
+def frequency_map(head):
+	pass
 
 
 

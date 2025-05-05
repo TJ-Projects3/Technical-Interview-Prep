@@ -112,21 +112,67 @@ nums_one = [2,5,7,8,8]
 print(reverse_list(nums_one))
 
 
+
+# The sliding window technique is an algorithmic technique often used to find a subarray or substring that meets certain criteria. 
+# It works by initializing two pointers to point at the start and end of a ‘window’ or subsection of the string/array at a time. 
+# The pointers are then incremented to slide the window and examine a different subarray or substring.
+# Use the sliding window technique to solve the following problem:
+# Write a function find_averages_of_subarrays() that takes in a list of integers nums and an integer k as parameters. 
+# The function returns a list where each element in the average of each contiguous subarray of size k in nums where 1 ≤k ≤ len(nums)
+# Plan: To find the average of each subarray, we will initialize a new list, and also window_sum as the sum of the first subarray in our nums list.
+# Then, we will iterate through the list starting from after that first subarray, using nums[i-k] to subtract the first indice of the subarray and
+# using nums[i] to add new values and create new subarrays and then take their average by dividing by k.
+
+def find_averages_of_subarrays(k, nums):
+
+    window_sum, newLst = sum(nums[0:k]), []
+    
+    for i in range(k, len(nums)): # k is stationary, i is dynamic and iterating
+        newLst.append(window_sum / k) # k is the size of the subarray, 
+        # It will always give us the first element of the current subarray we are on with i-k
+        window_sum = window_sum - nums[i-k] + nums[i]
+
+    newLst.append(window_sum/k)
+    return newLst
+
+nums = [1, 3, 2, 6, -1, 4, 1, 8, 2]
+avg_lst = find_averages_of_subarrays(5, nums)
+
+print(avg_lst)
+
+
+
+        
+
+        
+
+
+
+
+
+     
+
 # Write a function num_of_subarrays() that takes in a list of integers nums and two integers k and threshold as parameters.
 # The function returns the number of subarrays of size k whose average is greater than or equal to threshold.
 # Understand: We are asked to the number of subarrays with size k that have an average greater than or equal to the threshold given.
-# Plan: We will use the sliding window algorithm, then we will get the sum of the window divided by its length to calculate the avg,
-# we will then check how avg compares to threshold and keep a number of subarrays that are greater than or equal to the threshold.
+# Plan: We will initialize a window sum and count to keep track of the subarray totals and count of the subarrays. If our current window has an average
+# that is greater than the threshold, then we will iterate the count. Starting from after that window, we will iterate and update the subarray to test
+# each one.
 
 def num_of_subarrays(lst, k, threshold):
-     subArr_count = 0
-     j = k - 1
-     for i in range(len(lst)-j):
-        window = lst[i:i+k]
-        avg = sum(window)//len(window)
-        if avg >= threshold:
-            subArr_count += 1
-     return subArr_count
+    window_sum = sum(lst[0:k])
+    count = 0
+
+    if window_sum / k >= threshold:
+        count += 1
+
+    for i in range(k, len(lst)):
+        window_sum = window_sum - lst[i-k] + lst[i]
+        if window_sum / k >= threshold:
+            count += 1
+    return count
+
+
 
 nums = [2,2,2,2,5,5,5,8]
 count = num_of_subarrays(nums, 3, 4)
