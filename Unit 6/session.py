@@ -149,6 +149,25 @@ def frequency_map(head):
 head_land = Node(1, Node( 2, Node(2, Node(3, Node(3, Node(1))))))
 print(frequency_map(head_land))
 
+# Understand: We want to delete the node of a linked list, given the value in the linked list.
+
+def delete_node(head, val):
+      temp_head = Node("Temp")
+      temp_head.next = head
+
+      previous = temp_head
+      current = head
+      while current:
+            if current.val == val:
+                previous.next = current.next
+
+            previous = current
+            current = current.next
+      return temp_head.next
+                  
+    
+      
+
 
 
         
