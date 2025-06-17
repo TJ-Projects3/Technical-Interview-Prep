@@ -264,6 +264,44 @@ def get_count(lst):
 new_lst = [1,1,1,4,5,7,8,6,7]
 print(get_count(new_lst))
 
+# Write a function is_monotonic() that takes in a list nums as a parameter and checks if it is either monotone increasing or monotone decreasing.
+# A list is monotone increasing if every element is either greater than or equal to the element before it.
+# A list is monotone decreasing if every element is either less than or equal to the element before it.
+# The function should return True if the given list is either monotone increasing or decreasing and False otherwise.
+# Hint: This is a lists problem
+
+# Understand: We are determining if the list is monotone decreasing or monotone increasing, meaning the EVERY value is either greater than or equal to
+# element before it or every element is either less than or equal to the element before it.
+# Plan: For each monotone type, use a for loop to iterate through the elements and return True if each element before is monotone format.
+def is_monotonic(nums):
+    is_increasing = True # Set boolean to track if the list is increasing
+    for i in range(1, len(nums)): # For every element in nums list, starting from to 1 to len(nums) to cover all indices
+        if nums[i - 1] > nums[i]: # For our increasing loop, if the element is less than the element before
+            is_increasing = False # Set increasing boolean to False, because it's definitely not an increasing monotone
+            break # Break off the loop early to save time complexity
+
+    is_decreasing = True # Set boolean for decreasing loop to see if it is actually going to be a monotone decreasing list
+    for n in range(1, len(nums)): # For every element in nums list, startngi from 1 to len(nums) to account for every number
+        if nums[n - 1] < nums[n]: # If the current element is now greater than the element before the current
+            is_decreasing = False # Set is_decreasing to False, because there is no way the list is "monotone decreasing" or a decreasing list
+            break # Break early to save time
+
+    return is_increasing or is_decreasing # return boolean to see if one is true or both booleans are False
+
+nums1 = [1,2,2,3,10]
+print(is_monotonic(nums1))
+
+nums2 = [12,9,8,3,1]
+print(is_monotonic(nums2))
+
+nums3 = [1,1,1]
+print(is_monotonic(nums3))
+
+nums4 = [1,9,8,3,5]
+print(is_monotonic(nums4))
+            
+            
+
 
 	
 
