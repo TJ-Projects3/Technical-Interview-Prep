@@ -300,7 +300,6 @@ print(is_monotonic(nums3))
 nums4 = [1,9,8,3,5]
 print(is_monotonic(nums4))
             
-            
 
 
 	
