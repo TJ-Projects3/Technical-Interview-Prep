@@ -111,20 +111,57 @@
 # list of strings to iterate through
 # increment/decrement based off values
 
-def final_value_after_operations(operations):
-	tigger = 1
-	for i in operations:
-		if i == "bouncy" or i == "flouncy":
-			tigger += 1
+# def final_value_after_operations(operations):
+# 	tigger = 1
+# 	for i in operations:
+# 		if i == "bouncy" or i == "flouncy":
+# 			tigger += 1
 			
-		if i == "trouncy" or i == "pouncy":
-			tigger -= 1
-	return tigger
+# 		if i == "trouncy" or i == "pouncy":
+# 			tigger -= 1
+# 	return tigger
 
 
-operations = ["trouncy", "flouncy", "flouncy"]
-print(final_value_after_operations(operations))
+# operations = ["trouncy", "flouncy", "flouncy"]
+# print(final_value_after_operations(operations))
 
-operations = ["bouncy", "bouncy", "flouncy"]
-print(final_value_after_operations(operations))
+# operations = ["bouncy", "bouncy", "flouncy"]
+# print(final_value_after_operations(operations))
+
+# Given two lists of strings artists and set_times of length n, write a function lineup() that maps each artist to their set time.
+# An artist artists[i] has set time set_times[i]. Assume i <= 0 < n and len(artists) == len(set_times).
+#   V           V
+# ["Big Cat", "Snoop"]
+# ["9:00PM", "12:00PM"]
+# {"Big Cat": "9:00PM", "Snoop": "12:00PM"}
+def lineup(artists, set_times):
+    # Dictionary
+	result = {}
+	# For loop
+	for i in range(len(artists)):
+	# Since lengths are equal we'll iterate through both with one pointer
+	# As we loop through assign artists[i] as the key and set_times[i] as the value in the dictionary
+		result[artists[i]] = set_times[i]
+	# Return the dictionary
+	return result
+
+artists1 = ["Kendrick Lamar", "Chappell Roan", "Mitski", "Rosalia"]
+set_times1 = ["9:30 PM", "5:00 PM", "2:00 PM", "7:30 PM"]
+
+artists2 = []
+set_times2 = []
+
+print(lineup(artists1, set_times1))
+print(lineup(artists2, set_times2))
+
+
+# You are designing an app for your festival to help attendees have the best experience possible! As part of the application, 
+# users will be able to easily search their favorite artist and find out the day, time, and stage the artist is playing at. 
+# Write a function get_artist_info() that accepts a string artist and a dictionary festival_schedule mapping artist's names to dictionaries 
+# containing the day, time, and stage they are playing on. Return the dictionary containing the information about the given artist.
+# If the artist searched for does not exist in festival_schedule, return the dictionary {"message": "Artist not found"}.
+
+def get_artist_info(artist, festival_schedule):
+    pass
+
 			
