@@ -161,43 +161,102 @@
 # If the artist searched for does not exist in festival_schedule, return the dictionary {"message": "Artist not found"}.
 
 # We're trying to get the schedule (dictionary inside the dictionary, value of the key) for a given artist name (key, string) inside festival_schedule
-def get_artist_info(artist, festival_schedule):
-# 	# Check if the artist is in the festival schedule
-	if artist in festival_schedule:
-		return festival_schedule[artist]
-# 	# If he is then return the value of the artist key
-# 	# else return {"message": "Artist not found"}
-	else:
-		return {"message": "Artist not found"}
+# def get_artist_info(artist, festival_schedule):
+# # 	# Check if the artist is in the festival schedule
+# 	if artist in festival_schedule:
+# 		return festival_schedule[artist]
+# # 	# If he is then return the value of the artist key
+# # 	# else return {"message": "Artist not found"}
+# 	else:
+# 		return {"message": "Artist not found"}
 	
-festival_schedule = {
-    "Blood Orange": {"day": "Friday", "time": "9:00 PM", "stage": "Main Stage"},
-    "Metallica": {"day": "Saturday", "time": "8:00 PM", "stage": "Main Stage"},
-    "Kali Uchis": {"day": "Sunday", "time": "7:00 PM", "stage": "Second Stage"},
-    "Lawrence": {"day": "Friday", "time": "6:00 PM", "stage": "Main Stage"}
-}
+# festival_schedule = {
+#     "Blood Orange": {"day": "Friday", "time": "9:00 PM", "stage": "Main Stage"},
+#     "Metallica": {"day": "Saturday", "time": "8:00 PM", "stage": "Main Stage"},
+#     "Kali Uchis": {"day": "Sunday", "time": "7:00 PM", "stage": "Second Stage"},
+#     "Lawrence": {"day": "Friday", "time": "6:00 PM", "stage": "Main Stage"}
+# }
 
-print(get_artist_info("Blood Orange", festival_schedule)) 
-print(get_artist_info("Taylor Swift", festival_schedule))
+# print(get_artist_info("Blood Orange", festival_schedule)) 
+# print(get_artist_info("Taylor Swift", festival_schedule))
 
 # A dictionary ticket_sales is used to map ticket type to number of tickets sold. Return the total number of tickets of all types sold.
 
 # Ticket types are mapped to their number of tickets sold in that type. Add together all the values in the hashmap to get the total # of tickets sold.
 
-def total_sales(ticket_sales):
-	# Initialize a sum since we're adding a for a total
-	total = 0
-	# As we iterate using a for loop, we'll add the values from the hashmap to the sum
-	for i in ticket_sales:
-		total += ticket_sales.get(i, 0) # Getting the value from the key i with the get function
-	# After the loop, return sum
-	return total
+# def total_sales(ticket_sales):
+# 	# Initialize a sum since we're adding a for a total
+# 	total = 0
+# 	# As we iterate using a for loop, we'll add the values from the hashmap to the sum
+# 	for i in ticket_sales:
+# 		total += ticket_sales.get(i, 0) # Getting the value from the key i with the get function
+# 	# After the loop, return sum
+# 	return total
 
-ticket_sales = {"Friday": 200, "Saturday": 1000, "Sunday": 800, "3-Day Pass": 2500}
-ticket_sales1 = {"Friday": 0, "Saturday": 10000, "Sunday": 833, "3-Day Pass": -2500}
+# ticket_sales = {"Friday": 200, "Saturday": 1000, "Sunday": 800, "3-Day Pass": 2500}
+# ticket_sales1 = {"Friday": 0, "Saturday": 10000, "Sunday": 833, "3-Day Pass": -2500}
 
-print(total_sales(ticket_sales))
-print(total_sales(ticket_sales1))
+# print(total_sales(ticket_sales))
+# print(total_sales(ticket_sales1))
+
+# Captain Blackbeard has a treasure map with several clues that point to different locations on an island. 
+# Each clue is associated with a specific location and the number of treasures buried there. Given a dictionary treasure_map 
+# where keys are location names and values are integers representing the number of treasures buried at those locations, 
+# write a function total_treasures() that returns the total number of treasures buried on the island.
+
+def total_treasures(treasure_map):
+    # Initialize sum
+    total = 0
+    # Use a for loop to iterate through treasure_map
+    for i in treasure_map:
+        # Add the values in the dictionary to the total using get function syntax
+        total += treasure_map.get(i, 0)
+    # AFTER the loop, return sum.
+    return total
+
+treasure_map1 = {
+    "Cove": 3,
+    "Beach": 7,
+    "Forest": 5
+}
+
+treasure_map2 = {
+    "Shipwreck": 10,
+    "Cave": 20,
+    "Lagoon": 15,
+    "Island Peak": 5
+}
+
+print(total_treasures(treasure_map1)) 
+print(total_treasures(treasure_map2))
+
+# Taken captive, Captain Anne Bonny has been smuggled a secret message from her crew. She will know she can trust the message if it 
+# contains all of the letters in the alphabet. Given a string message containing only lowercase English letters and whitespace, write a 
+# function can_trust_message() that returns True if the message contains every letter of the English alphabet at least once, and False otherwise.
+
+def can_trust_message(message):
+    # Edge case: if len(message) < 26: automatically false
+    # Initialize a set called seen
+    # for i in message, if i not in seen: seen.add(...)
+    # if len(seen) <= 26: return True
+    
+    if len(message) < 26:
+        return False
+    
+    seen = set()
+    
+    for i in message:
+        if i != " ":
+            seen.add(i)
+            
+    return len(seen) == 26
+
+message1 = "sphinx of black quartz judge my vow"
+message2 = "trust me"
+
+print(can_trust_message(message1))
+print(can_trust_message(message2))
+        
 	
     
 
