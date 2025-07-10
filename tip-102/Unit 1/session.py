@@ -1,5 +1,5 @@
-# # Given two string arrays word1 and word2, return True if the two arrays represent the same string, and False otherwise.
-# # A string is represented by an array if the array elements concatenated in order forms the string.
+# Given two string arrays word1 and word2, return True if the two arrays represent the same string, and False otherwise.
+# A string is represented by an array if the array elements concatenated in order forms the string.
 
 # def are_equivalent(word1, word2):
 #     return "".join(word1) == "".join(word2)
@@ -134,26 +134,25 @@
 # ["Big Cat", "Snoop"]
 # ["9:00PM", "12:00PM"]
 # {"Big Cat": "9:00PM", "Snoop": "12:00PM"}
-def lineup(artists, set_times):
-    # Dictionary
-	result = {}
-	# For loop
-	for i in range(len(artists)):
-	# Since lengths are equal we'll iterate through both with one pointer
-	# As we loop through assign artists[i] as the key and set_times[i] as the value in the dictionary
-		result[artists[i]] = set_times[i]
-	# Return the dictionary
-	return result
+# def lineup(artists, set_times):
+#     # Dictionary
+# 	result = {}
+# 	# For loop
+# 	for i in range(len(artists)):
+# 	# Since lengths are equal we'll iterate through both with one pointer
+# 	# As we loop through assign artists[i] as the key and set_times[i] as the value in the dictionary
+# 		result[artists[i]] = set_times[i]
+# 	# Return the dictionary
+# 	return result
 
-artists1 = ["Kendrick Lamar", "Chappell Roan", "Mitski", "Rosalia"]
-set_times1 = ["9:30 PM", "5:00 PM", "2:00 PM", "7:30 PM"]
+# artists1 = ["Kendrick Lamar", "Chappell Roan", "Mitski", "Rosalia"]
+# set_times1 = ["9:30 PM", "5:00 PM", "2:00 PM", "7:30 PM"]
 
-artists2 = []
-set_times2 = []
+# artists2 = []
+# set_times2 = []
 
-print(lineup(artists1, set_times1))
-print(lineup(artists2, set_times2))
-
+# print(lineup(artists1, set_times1))
+# print(lineup(artists2, set_times2))
 
 # You are designing an app for your festival to help attendees have the best experience possible! As part of the application, 
 # users will be able to easily search their favorite artist and find out the day, time, and stage the artist is playing at. 
@@ -161,7 +160,45 @@ print(lineup(artists2, set_times2))
 # containing the day, time, and stage they are playing on. Return the dictionary containing the information about the given artist.
 # If the artist searched for does not exist in festival_schedule, return the dictionary {"message": "Artist not found"}.
 
+# We're trying to get the schedule (dictionary inside the dictionary, value of the key) for a given artist name (key, string) inside festival_schedule
 def get_artist_info(artist, festival_schedule):
-    pass
+# 	# Check if the artist is in the festival schedule
+	if artist in festival_schedule:
+		return festival_schedule[artist]
+# 	# If he is then return the value of the artist key
+# 	# else return {"message": "Artist not found"}
+	else:
+		return {"message": "Artist not found"}
+	
+festival_schedule = {
+    "Blood Orange": {"day": "Friday", "time": "9:00 PM", "stage": "Main Stage"},
+    "Metallica": {"day": "Saturday", "time": "8:00 PM", "stage": "Main Stage"},
+    "Kali Uchis": {"day": "Sunday", "time": "7:00 PM", "stage": "Second Stage"},
+    "Lawrence": {"day": "Friday", "time": "6:00 PM", "stage": "Main Stage"}
+}
+
+print(get_artist_info("Blood Orange", festival_schedule)) 
+print(get_artist_info("Taylor Swift", festival_schedule))
+
+# A dictionary ticket_sales is used to map ticket type to number of tickets sold. Return the total number of tickets of all types sold.
+
+# Ticket types are mapped to their number of tickets sold in that type. Add together all the values in the hashmap to get the total # of tickets sold.
+
+def total_sales(ticket_sales):
+	# Initialize a sum since we're adding a for a total
+	total = 0
+	# As we iterate using a for loop, we'll add the values from the hashmap to the sum
+	for i in ticket_sales:
+		total += ticket_sales.get(i, 0) # Getting the value from the key i with the get function
+	# After the loop, return sum
+	return total
+
+ticket_sales = {"Friday": 200, "Saturday": 1000, "Sunday": 800, "3-Day Pass": 2500}
+ticket_sales1 = {"Friday": 0, "Saturday": 10000, "Sunday": 833, "3-Day Pass": -2500}
+
+print(total_sales(ticket_sales))
+print(total_sales(ticket_sales1))
+	
+    
 
 			
