@@ -140,18 +140,6 @@ avg_lst = find_averages_of_subarrays(5, nums)
 
 print(avg_lst)
 
-
-
-        
-
-        
-
-
-
-
-
-     
-
 # Write a function num_of_subarrays() that takes in a list of integers nums and two integers k and threshold as parameters.
 # The function returns the number of subarrays of size k whose average is greater than or equal to threshold.
 # Understand: We are asked to the number of subarrays with size k that have an average greater than or equal to the threshold given.

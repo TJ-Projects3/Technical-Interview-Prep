@@ -256,8 +256,3 @@ message2 = "trust me"
 
 print(can_trust_message(message1))
 print(can_trust_message(message2))
-        
-	
-    
-
-			
