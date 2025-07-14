@@ -104,23 +104,23 @@
 # # contains all of the letters in the alphabet. Given a string message containing only lowercase English letters and whitespace, write a 
 # # function can_trust_message() that returns True if the message contains every letter of the English alphabet at least once, and False otherwise.
 
-# def can_trust_message(message):
-#     # Edge case: if len(message) < 26: automatically false
-#     # Initialize a set called seen
-#     # for i in message, (if i not in seen not needed)
-#     # if  i != " " (whitespace): seen.add(i)
-#     # if len(seen) <= 26: return True
+def can_trust_message(message):
+    # Edge case: if len(message) < 26: automatically false
+    # Initialize a set called seen
+    # for i in message, (if i not in seen not needed)
+    # if  i != " " (whitespace): seen.add(i)
+    # if len(seen) <= 26: return True
     
-#     if len(message) < 26:
-#         return False #Edge case to see if message is even 26 characters
+    if len(message) < 26:
+        return False #Edge case to see if message is even 26 characters
     
-#     seen = set() # Initialize set
+    seen = set() # Initialize set
     
-#     for i in message: # For every character in message
-#         if i != " ": # If i is not whitespace
-#             seen.add(i) # Then add i to the seen set, which ultimately only takes in unique values
+    for i in message: # For every character in message
+        if i != " ": # If i is not whitespace
+            seen.add(i) # Then add i to the seen set, which ultimately only takes in unique values
             
-#     return len(seen) == 26 # Return True if length of seen has all 26 letters of alphabet else False
+    return len(seen) == 26 # Return True if length of seen has all 26 letters of alphabet else False
 
 # message1 = "sphinx of black quartz judge my vow"
 # message2 = "trust me"
@@ -131,20 +131,20 @@
 # # Captain Blackbeard has an integer array chests of length n where all the integers in chests are in the range [1, n] and each integer appears 
 # # once or twice. Return an array of all the integers that appear twice, representing the treasure chests that have duplicates.
 
-# def find_duplicate_chests(chests):
-#     # Initialize a set and result array
-#     # For chest in chests
-#     # if chest in seen:
-#     # Add chest to the result array
-#     # seen.add(chest)
-#     # Outside of for loop, return result
-#     seen = set()
-#     result = []
-#     for chest in chests:
-#         if chest in seen:
-#             result.append(chest)
-#         seen.add(chest)
-#     return result
+def find_duplicate_chests(chests):
+    # Initialize a set and result array
+    # For chest in chests
+    # if chest in seen:
+    # Add chest to the result array
+    # seen.add(chest)
+    # Outside of for loop, return result
+    seen = set()
+    result = []
+    for chest in chests:
+        if chest in seen:
+            result.append(chest)
+        seen.add(chest)
+    return result
 
 # chests1 = [4, 3, 2, 7, 8, 2, 3, 1]
 # chests2 = [1, 1, 2]
@@ -166,30 +166,30 @@
 # # "hahahaa"
 # # True
 
-# def is_balanced(code): # Think like a human in real life for the problem
+def is_balanced(code): # Think like a human in real life for the problem
 # # Count the letters
 # # Have a copy
 # # Remove every letter once using a for loop to see which balances the string
 # # If you go through each letter, and nothing balances, return False
-#     counter = {}
-#     for i in code:
-#         counter[i] = counter.get(i,0) + 1
+    counter = {}
+    for i in code:
+        counter[i] = counter.get(i,0) + 1
     
-#     for i in counter:
-#         counter_copy = counter.copy()
-#         counter_copy[i] -= 1
+    for i in counter:
+        counter_copy = counter.copy()
+        counter_copy[i] -= 1
 
-#         if counter_copy[i] == 0:
-#             del counter_copy[i]
+        if counter_copy[i] == 0:
+            del counter_copy[i]
 
-#         values = list(counter_copy.values())
+        values = list(counter_copy.values())
 
-#         if len(set(values)) == 1:
-#             return True
-#     return False
+        if len(set(values)) == 1:
+            return True
+    return False
 
-# code1 = "ararrgghh"
-# code2 = "ha"
+code1 = "ararrgghh"
+code2 = "ha"
 
 # print(is_balanced(code1)) 
 # print(is_balanced(code2))
@@ -215,17 +215,17 @@
 # # We will subtract target - val each loop
 # # Remember, we want the indices...
 
-# def find_treasure_indices(gold_amounts, target):
+def find_treasure_indices(gold_amounts, target):
 #     # Hashmap
 #     # For loop
 #     # if target - val in the hashmap:
 #         # return [something, something] that add up to target
 #     # Regardless, keep assigning iterator value to its index.
-#     res = {}
-#     for i, val in enumerate(gold_amounts):
-#         if target - val in res: # 9 - 2 = 7 F # 9 - 7 = 2 T
-#             return [res[target - val], i] # i = 1, returns [1, 0]
-#         res[val] = i # {2: 0}
+    res = {}
+    for i, val in enumerate(gold_amounts):
+        if target - val in res: # 9 - 2 = 7 F # 9 - 7 = 2 T
+            return [res[target - val], i] # i = 1, returns [1, 0]
+        res[val] = i # {2: 0}
 
 # gold_amounts1 = [2, 7, 11, 15]
 # target1 = 9
@@ -253,30 +253,67 @@
 # Count the number of group sizes in hashmap
 
 def organize_pirate_crew(group_sizes):
-    # Count the # of group_sizes in a hashmap and make the value an empty list.
-    count = {}
-    for i in group_sizes:
-        count[i] = [] # {2: [], 1: [], 3: []}
-    # Have result list
+    group_tracker = {} # Initialize hashmap to track list of each group
+    for i in group_sizes: # For every group size in the given list
+        group_tracker[i] = [] # Mapping group size to list of pirates
     result = []
-    # For every number in group sizes
-    for idx, number in enumerate(group_sizes):
-        count[number].append(idx) # Append the pirate to the group first
+    for i, val in enumerate(group_sizes):
+        group_tracker[val].append(i) # Append the pirate ID from group_sizes into tracker list
 
-        if len(count[number]) == number: # If the group is full
-            result.append(count[number]) # Move the group to the result
-            count[number] = [] # Clear for a new group in the same place
-    return result # After we go through all pirates and all groups, return result
+        if len(group_tracker[val]) == val: # If the tracker list is full for a group size
+            result.append(group_tracker[val]) # Append the current full group to the result list
+            group_tracker[val] = [] # Empty the list for space since one group has been organized and moved to result.
+    return result # Return the final result of organized, complete group lists
 
-group_sizes1 = [3, 3, 3, 3, 3, 1, 3]
-group_sizes2 = [2, 1, 3, 3, 3, 2]
-group_sizes3 = [2, 2]
-group_sizes4 = [2, 2, 1, 1, 1, 3, 3, 3]
+# group_sizes1 = [3, 3, 3, 3, 3, 1, 3]
+# group_sizes2 = [2, 1, 3, 3, 3, 2]
+# group_sizes3 = [2, 2]
+# group_sizes4 = [2, 2, 1, 1, 1, 3, 3, 3]
 
-print(organize_pirate_crew(group_sizes1))
-print(organize_pirate_crew(group_sizes2))
-print(organize_pirate_crew(group_sizes3))
-print(organize_pirate_crew(group_sizes4))  
+# print(organize_pirate_crew(group_sizes1))
+# print(organize_pirate_crew(group_sizes2))
+# print(organize_pirate_crew(group_sizes3))
+# print(organize_pirate_crew(group_sizes4))
 
-        
+# Captain Blackbeard has two treasure maps represented by two strings of the same length map1 and map2. In one step, 
+# you can choose any character of map2 and replace it with another character.
+# Return the minimum number of steps to make map2 an anagram of map1.
+# An Anagram of a string is a string that contains the same characters with a different (or the same) ordering.
 
+def min_steps_to_match_maps(map1, map2):
+    if len(map1) != len(map2):
+        return None
+
+    counter1 = {}
+    counter2 = {}
+    diff_count = 0
+    
+    for i, n in zip(map1, map2):
+        counter1[i] = counter1.get(i, 0) + 1
+        counter2[n] = counter2.get(n, 0) + 1
+
+    if counter1 == counter2:
+        return 0
+
+    for i in counter2:  # For every character in map2
+        if i in counter1: # If it's in map1
+            diff_count += max(0, counter2[i] - counter1[i]) # Calculate the difference between character count if any
+        else:
+            diff_count += counter2[i]  # Add count for characters missing in counter1
+
+    return diff_count # Return total mismatching characters in "minimum steps"
+
+map1_1 = "bab"
+map2_1 = "aba"
+map1_2 = "treasure"
+map2_2 = "huntgold"
+map1_3 = "anagram"
+map2_3 = "mangaar"
+map1_4 = "abcde"
+map2_4 = "abzzz"
+
+
+print(min_steps_to_match_maps(map1_1, map2_1))
+print(min_steps_to_match_maps(map1_2, map2_2))
+print(min_steps_to_match_maps(map1_3, map2_3))
+print(min_steps_to_match_maps(map1_4, map2_4))
