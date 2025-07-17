@@ -166,154 +166,308 @@ def find_duplicate_chests(chests):
 # # "hahahaa"
 # # True
 
-def is_balanced(code): # Think like a human in real life for the problem
-# # Count the letters
-# # Have a copy
-# # Remove every letter once using a for loop to see which balances the string
-# # If you go through each letter, and nothing balances, return False
+# def is_balanced(code): # Think like a human in real life for the problem
+# # # Count the letters
+# # # Have a copy
+# # # Remove every letter once using a for loop to see which balances the string
+# # Return T/F depending on if we can balance the string (all frequencies equal) by removing one letter.
+#     count = {}
+#     for i in code:
+#         count[i] = count.get(i, 0) + 1
+
+#     for i in count: # We want to loop through count because we wont waste time on duplicate letters
+#         count_copy = count.copy()
+#         count_copy[i] -= 1
+
+#         if count_copy[i] == 0: # Remove the letter if it now equals 0, meaning it does not exist in the code anymore after removal
+#             del count_copy[i] 
+        
+#         word_check = set(count_copy.values())
+
+#         if len(word_check) == 1:
+#             return True
+#     return False
+
+
+
+# code1 = "arghh"
+# code2 = "haha"
+
+# print(is_balanced(code1)) 
+# print(is_balanced(code2)) 
+
+# #     # returning True or False based off if we can balance the count by removing one letter
+# #     # After counting, search for the greatest count and subtract it - 1
+
+
+
+# # # Captain Feathersword and their crew has discovered a list of gold amounts at various hidden locations on an island. 
+# # # Each number on the map corresponds to the amount of gold at a specific location. Captain Feathersword already has plenty of loot, 
+# # # and their ship is nearly full. They want to find two distinct locations on the map such that the sum of the gold amounts at these 
+# # # two locations is exactly equal to the amount of space left on their ship.
+
+# # # Given an array of integers gold_amounts representing the amount of gold at each location and an integer target, 
+# # # return the indices of the two locations whose gold amounts add up to the target.
+
+# # # Assume that each input has exactly one solution, and you may not use the same location twice. You can return the answer in any order.
+
+# # # This is a Two Sum solution
+# # # We want to iterate through a for loop with an enumerate, and subtract the target - value of iterator to see if it exists in the list
+# # # We can find out if it exists not using a list, but using the direct lookup of a hashmap, which is O(1) by the way
+# # # We will subtract target - val each loop
+# # # Remember, we want the indices...
+
+# def find_treasure_indices(gold_amounts, target):
+# #     # Hashmap
+# #     # For loop
+# #     # if target - val in the hashmap:
+# #         # return [something, something] that add up to target
+# #     # Regardless, keep assigning iterator value to its index.
+#     res = {}
+#     for i, val in enumerate(gold_amounts):
+#         if target - val in res: # 9 - 2 = 7 F # 9 - 7 = 2 T
+#             return [res[target - val], i] # i = 1, returns [1, 0]
+#         res[val] = i # {2: 0}
+
+# # gold_amounts1 = [2, 7, 11, 15]
+# # target1 = 9
+
+# # gold_amounts2 = [3, 2, 4]
+# # target2 = 6
+
+# # gold_amounts3 = [3, 3]
+# # target3 = 6
+
+# # print(find_treasure_indices(gold_amounts1, target1))  
+# # print(find_treasure_indices(gold_amounts2, target2))  
+# # print(find_treasure_indices(gold_amounts3, target3))
+
+
+# # Problem 6: Organize the Pirate Crew
+# # Captain Blackbeard needs to organize his pirate crew into different groups for a treasure hunt. Each pirate has a unique ID from 0 to n - 1.
+# # You are given an integer array group_sizes, where group_sizes[i] is the size of the group that pirate i should be in.
+# # For example, if group_sizes[1] = 3, then pirate 1 must be in a group of size 3.
+# # Return a list of groups such that each pirate i is in a group of size group_sizes[i].
+# # Each pirate should appear in exactly one group, and every pirate must be in a group. 
+# # If there are multiple answers, return any of them. It is guaranteed that there will be at least one valid solution for the given input.
+
+# # Based on the value, we will organize the indices into groups of those sizes.
+# # Count the number of group sizes in hashmap
+
+# def organize_pirate_crew(group_sizes):
+#     group_tracker = {} # Initialize hashmap to track list of each group
+#     for i in group_sizes: # For every group size in the given list
+#         group_tracker[i] = [] # Mapping group size to list of pirates
+#     result = []
+#     for i, val in enumerate(group_sizes):
+#         group_tracker[val].append(i) # Append the pirate ID from group_sizes into tracker list
+
+#         if len(group_tracker[val]) == val: # If the tracker list is full for a group size
+#             result.append(group_tracker[val]) # Append the current full group to the result list
+#             group_tracker[val] = [] # Empty the list for space since one group has been organized and moved to result.
+#     return result # Return the final result of organized, complete group lists
+
+# # group_sizes1 = [3, 3, 3, 3, 3, 1, 3]
+# # group_sizes2 = [2, 1, 3, 3, 3, 2]
+# # group_sizes3 = [2, 2]
+# # group_sizes4 = [2, 2, 1, 1, 1, 3, 3, 3]
+
+# # print(organize_pirate_crew(group_sizes1))
+# # print(organize_pirate_crew(group_sizes2))
+# # print(organize_pirate_crew(group_sizes3))
+# # print(organize_pirate_crew(group_sizes4))
+
+# # Captain Blackbeard has two treasure maps represented by two strings of the same length map1 and map2. In one step, 
+# # you can choose any character of map2 and replace it with another character.
+# # Return the minimum number of steps to make map2 an anagram of map1.
+# # An Anagram of a string is a string that contains the same characters with a different (or the same) ordering.
+
+# def min_steps_to_match_maps(map1, map2):
+#     if len(map1) != len(map2):
+#         return None
+
+#     counter1 = {}
+#     counter2 = {}
+#     diff_count = 0
+    
+#     for i, n in zip(map1, map2):
+#         counter1[i] = counter1.get(i, 0) + 1
+#         counter2[n] = counter2.get(n, 0) + 1
+
+#     if counter1 == counter2:
+#         return 0
+
+#     for i in counter2:  # For every character in map2
+#         if i in counter1: # If it's in map1
+#             if counter2[i] > counter1[i]:
+#                 diff_count += counter2[i] - counter1[i]
+#         else:
+#             diff_count += counter2[i]  # Add count for characters missing in counter1
+
+#     return diff_count # Return total mismatching characters in "minimum steps"
+
+# map1_1 = "bab"
+# map2_1 = "aba"
+# map1_2 = "treasure"
+# map2_2 = "huntgold"
+# map1_3 = "anagram"
+# map2_3 = "mangaar"
+# map1_4 = "abcde"
+# map2_4 = "abzzz"
+
+
+# print(min_steps_to_match_maps(map1_1, map2_1))
+# print(min_steps_to_match_maps(map1_2, map2_2))
+# print(min_steps_to_match_maps(map1_3, map2_3))
+# print(min_steps_to_match_maps(map1_4, map2_4))
+
+
+# # Problem 8: Counting Pirates' Action Minutes
+# # Captain Dread is keeping track of the crew's activities using a log. 
+# # The logs are represented by a 2D integer array logs where each logs[i] = [pirateID, time] indicates that the 
+# # pirate with pirateID performed an action at the minute time. Multiple pirates can perform actions simultaneously, 
+# # and a single pirate can perform multiple actions in the same minute. The pirate action minutes (PAM) for a given pirate is 
+# # defined as the number of unique minutes in which the pirate performed an action. A minute can only be counted once, 
+# # even if multiple actions occur during it.
+# # You are to calculate a 1-indexed array answer of size k such that, for each j (1 <= j <= k), answer[j] is the number of pirates whose PAM equals j.
+
+# # Return the array answer as described above.
+
+# def counting_pirates_action_minutes(logs, k):
+#     # Use a dictionary, and have a result list
+#     # Map each pirateID to a set of times
+#     # Before we do this, we check if the pirateID is already in the dictionary
+#     # We do this because we are adding unique times to the set at the same time
+#     # After we have the pirateID mapped to a set of unique times, the length of
+#     # the set == the pirateID's PAM
+#     # We will use len(pam_counter[j]) as our index, IF it <= k.
+#     # We will iterate the count by one at the index as the list communicates
+#     # The number of pirates with a specific PAM (value), with the PAM being measured
+#     # by the index
+#     pam_counter = {}
+#     result = [0] * k
+
+#     for i in range(len(logs)):
+#         if logs[i][0] not in pam_counter:
+#             pam_counter[logs[i][0]] = set()
+#         pam_counter[logs[i][0]].add(logs[i][1])
+
+#     for j in pam_counter:
+#         if len(pam_counter[j]) <= k:
+#             result[len(pam_counter[j]) - 1] += 1
+    
+#     return result
+
+        
+# logs1 = [[0, 5], [1, 2], [0, 2], [0, 5], [1, 3]]
+# k1 = 5
+# logs2 = [[1, 1], [2, 2], [2, 3]]
+# k2 = 4
+
+# print(counting_pirates_action_minutes(logs1, k1)) 
+# print(counting_pirates_action_minutes(logs2, k2))
+
+
+# As the curator of an art gallery, you are organizing a new exhibition. You must ensure the collection of art pieces are balanced to attract the 
+# right range of buyers. A balanced collection is one where the difference between the maximum and minimum value of the art pieces is exactly 1.
+# Given an integer array art_pieces representing the value of each art piece, write a function find_balanced_subsequence() 
+# that returns the length of the longest balanced subsequence.
+
+# A subsequence is a sequence derived from the array by deleting some or no elements without changing the order of the remaining elements.
+
+def find_balanced_subsequence(art_pieces):
+    # Use a set to find all unique values
+    # Use for loop to iterate through set
+    # Check if sum + 1 in set
+    # If it is add that value using 
+    if not art_pieces:
+         return 0
+    
+    count = {}
+    total, max_length = 0, 0
+
+    for i in art_pieces:
+        count[i] = count.get(i,0) + 1
+
+    for num in count:
+        if num + 1 in count:
+            total = count[num] + count[num+1]
+            max_length = max(max_length, total)
+    return max_length
+
+art_pieces1 = [1,3,2,2,5,2,3,7]
+art_pieces2 = [1,2,3,4]
+art_pieces3 = [1,1,1,1]
+
+print(find_balanced_subsequence(art_pieces1))
+print(find_balanced_subsequence(art_pieces2))
+print(find_balanced_subsequence(art_pieces3))
+
+# Imagine you are working on a wildlife conservation database. Write a function named most_endangered() 
+# that returns the species with the highest conservation priority based on its population.
+# The function should take in a list of dictionaries named species_list as a parameter. Each dictionary represents data associated with a species, 
+# including its name, habitat, and wild population. The function should return the name of the species with the lowest population.
+
+# If there are multiple species with the lowest population, return the species with the lowest index.
+
+def most_endangered(species_list):
+    most_endangered = species_list[0]
+
+    for i in species_list[1:]:
+        if  i["population"] < most_endangered["population"]:
+            most_endangered = i
+    return most_endangered["name"]
+
+species_list = [
+    {"name": "Amur Leopard",
+     "habitat": "Temperate forests",
+     "population": 84
+    },
+    {"name": "Javan Rhino",
+     "habitat": "Tropical forests",
+     "population": 72
+    },
+    {"name": "Vaquita",
+     "habitat": "Marine",
+     "population": 10
+    },
+    {"name": "Vacko",
+     "habitat": "Saharan Desert",
+     "population": 100
+    }
+]
+
+print(most_endangered(species_list))
+
+# As part of conservation efforts, certain species are considered endangered and are represented by the string endangered_species. Each character in this string denotes a different endangered species. You also have a record of all observed species in a particular region, represented by the string observed_species. Each character in observed_species denotes a species observed in the region.
+
+# Your task is to determine how many instances of the observed species are also considered endangered.
+
+# Note: Species are case-sensitive, so "a" is considered a different species from "A".
+
+# Write a function to count the number of endangered species observed.
+
+def count_endangered_species(endangered_species, observed_species):
+    # Edge case: if theres no endangered species in observed at all.
+    # Count the number of observed species
     counter = {}
-    for i in code:
+    count = 0
+    for i in observed_species:
         counter[i] = counter.get(i,0) + 1
     
     for i in counter:
-        counter_copy = counter.copy()
-        counter_copy[i] -= 1
+        if i in endangered_species:
+            count += counter[i]
+    return count
+    # In another loop, if the observed species is endangered
+        # iterate the count by how many species are observed
+    # return the count
+endangered_species1 = "aA"
+observed_species1 = "aAAbbbb"
 
-        if counter_copy[i] == 0:
-            del counter_copy[i]
+endangered_species2 = "z"
+observed_species2 = "ZZ"
 
-        values = list(counter_copy.values())
+print(count_endangered_species(endangered_species1, observed_species1)) 
+print(count_endangered_species(endangered_species2, observed_species2))  
 
-        if len(set(values)) == 1:
-            return True
-    return False
-
-code1 = "ararrgghh"
-code2 = "ha"
-
-# print(is_balanced(code1)) 
-# print(is_balanced(code2))
-
-#     # returning True or False based off if we can balance the count by removing one letter
-#     # After counting, search for the greatest count and subtract it - 1
-
-
-
-# # Captain Feathersword and their crew has discovered a list of gold amounts at various hidden locations on an island. 
-# # Each number on the map corresponds to the amount of gold at a specific location. Captain Feathersword already has plenty of loot, 
-# # and their ship is nearly full. They want to find two distinct locations on the map such that the sum of the gold amounts at these 
-# # two locations is exactly equal to the amount of space left on their ship.
-
-# # Given an array of integers gold_amounts representing the amount of gold at each location and an integer target, 
-# # return the indices of the two locations whose gold amounts add up to the target.
-
-# # Assume that each input has exactly one solution, and you may not use the same location twice. You can return the answer in any order.
-
-# # This is a Two Sum solution
-# # We want to iterate through a for loop with an enumerate, and subtract the target - value of iterator to see if it exists in the list
-# # We can find out if it exists not using a list, but using the direct lookup of a hashmap, which is O(1) by the way
-# # We will subtract target - val each loop
-# # Remember, we want the indices...
-
-def find_treasure_indices(gold_amounts, target):
-#     # Hashmap
-#     # For loop
-#     # if target - val in the hashmap:
-#         # return [something, something] that add up to target
-#     # Regardless, keep assigning iterator value to its index.
-    res = {}
-    for i, val in enumerate(gold_amounts):
-        if target - val in res: # 9 - 2 = 7 F # 9 - 7 = 2 T
-            return [res[target - val], i] # i = 1, returns [1, 0]
-        res[val] = i # {2: 0}
-
-# gold_amounts1 = [2, 7, 11, 15]
-# target1 = 9
-
-# gold_amounts2 = [3, 2, 4]
-# target2 = 6
-
-# gold_amounts3 = [3, 3]
-# target3 = 6
-
-# print(find_treasure_indices(gold_amounts1, target1))  
-# print(find_treasure_indices(gold_amounts2, target2))  
-# print(find_treasure_indices(gold_amounts3, target3))
-
-
-# Problem 6: Organize the Pirate Crew
-# Captain Blackbeard needs to organize his pirate crew into different groups for a treasure hunt. Each pirate has a unique ID from 0 to n - 1.
-# You are given an integer array group_sizes, where group_sizes[i] is the size of the group that pirate i should be in.
-# For example, if group_sizes[1] = 3, then pirate 1 must be in a group of size 3.
-# Return a list of groups such that each pirate i is in a group of size group_sizes[i].
-# Each pirate should appear in exactly one group, and every pirate must be in a group. 
-# If there are multiple answers, return any of them. It is guaranteed that there will be at least one valid solution for the given input.
-
-# Based on the value, we will organize the indices into groups of those sizes.
-# Count the number of group sizes in hashmap
-
-def organize_pirate_crew(group_sizes):
-    group_tracker = {} # Initialize hashmap to track list of each group
-    for i in group_sizes: # For every group size in the given list
-        group_tracker[i] = [] # Mapping group size to list of pirates
-    result = []
-    for i, val in enumerate(group_sizes):
-        group_tracker[val].append(i) # Append the pirate ID from group_sizes into tracker list
-
-        if len(group_tracker[val]) == val: # If the tracker list is full for a group size
-            result.append(group_tracker[val]) # Append the current full group to the result list
-            group_tracker[val] = [] # Empty the list for space since one group has been organized and moved to result.
-    return result # Return the final result of organized, complete group lists
-
-# group_sizes1 = [3, 3, 3, 3, 3, 1, 3]
-# group_sizes2 = [2, 1, 3, 3, 3, 2]
-# group_sizes3 = [2, 2]
-# group_sizes4 = [2, 2, 1, 1, 1, 3, 3, 3]
-
-# print(organize_pirate_crew(group_sizes1))
-# print(organize_pirate_crew(group_sizes2))
-# print(organize_pirate_crew(group_sizes3))
-# print(organize_pirate_crew(group_sizes4))
-
-# Captain Blackbeard has two treasure maps represented by two strings of the same length map1 and map2. In one step, 
-# you can choose any character of map2 and replace it with another character.
-# Return the minimum number of steps to make map2 an anagram of map1.
-# An Anagram of a string is a string that contains the same characters with a different (or the same) ordering.
-
-def min_steps_to_match_maps(map1, map2):
-    if len(map1) != len(map2):
-        return None
-
-    counter1 = {}
-    counter2 = {}
-    diff_count = 0
-    
-    for i, n in zip(map1, map2):
-        counter1[i] = counter1.get(i, 0) + 1
-        counter2[n] = counter2.get(n, 0) + 1
-
-    if counter1 == counter2:
-        return 0
-
-    for i in counter2:  # For every character in map2
-        if i in counter1: # If it's in map1
-            diff_count += max(0, counter2[i] - counter1[i]) # Calculate the difference between character count if any
-        else:
-            diff_count += counter2[i]  # Add count for characters missing in counter1
-
-    return diff_count # Return total mismatching characters in "minimum steps"
-
-map1_1 = "bab"
-map2_1 = "aba"
-map1_2 = "treasure"
-map2_2 = "huntgold"
-map1_3 = "anagram"
-map2_3 = "mangaar"
-map1_4 = "abcde"
-map2_4 = "abzzz"
-
-
-print(min_steps_to_match_maps(map1_1, map2_1))
-print(min_steps_to_match_maps(map1_2, map2_2))
-print(min_steps_to_match_maps(map1_3, map2_3))
-print(min_steps_to_match_maps(map1_4, map2_4))
