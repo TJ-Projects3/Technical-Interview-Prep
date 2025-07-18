@@ -376,25 +376,20 @@ def find_duplicate_chests(chests):
 # A subsequence is a sequence derived from the array by deleting some or no elements without changing the order of the remaining elements.
 
 def find_balanced_subsequence(art_pieces):
-    # Use a set to find all unique values
-    # Use for loop to iterate through set
-    # Check if sum + 1 in set
-    # If it is add that value using 
-    if not art_pieces:
-         return 0
-    
+    # Use a dictionary to count occurences of each number
+    # For each art piece in the dictionary:
+    # if n + 1 exists in the dictionary
+    # max_length = max(0,dict[n]  + dict[n+1])
+    # return our answer max_length
     count = {}
-    total, max_length = 0, 0
-
+    max_length = 0
     for i in art_pieces:
-        count[i] = count.get(i,0) + 1
-
-    for num in count:
-        if num + 1 in count:
-            total = count[num] + count[num+1]
-            max_length = max(max_length, total)
+        count[i] = count.get(i, 0) + 1
+    
+    for n in count:
+        if n + 1 in count:
+            max_length = max(max_length, count[n] + count[n+1])
     return max_length
-
 art_pieces1 = [1,3,2,2,5,2,3,7]
 art_pieces2 = [1,2,3,4]
 art_pieces3 = [1,1,1,1]
@@ -410,64 +405,158 @@ print(find_balanced_subsequence(art_pieces3))
 
 # If there are multiple species with the lowest population, return the species with the lowest index.
 
-def most_endangered(species_list):
-    most_endangered = species_list[0]
+# def most_endangered(species_list):
+#     most_endangered = species_list[0]
 
-    for i in species_list[1:]:
-        if  i["population"] < most_endangered["population"]:
-            most_endangered = i
-    return most_endangered["name"]
+#     for i in species_list[1:]:
+#         if  i["population"] < most_endangered["population"]:
+#             most_endangered = i
+#     return most_endangered["name"]
 
-species_list = [
-    {"name": "Amur Leopard",
-     "habitat": "Temperate forests",
-     "population": 84
-    },
-    {"name": "Javan Rhino",
-     "habitat": "Tropical forests",
-     "population": 72
-    },
-    {"name": "Vaquita",
-     "habitat": "Marine",
-     "population": 10
-    },
-    {"name": "Vacko",
-     "habitat": "Saharan Desert",
-     "population": 100
-    }
-]
+# species_list = [
+#     {"name": "Amur Leopard",
+#      "habitat": "Temperate forests",
+#      "population": 84
+#     },
+#     {"name": "Javan Rhino",
+#      "habitat": "Tropical forests",
+#      "population": 72
+#     },
+#     {"name": "Vaquita",
+#      "habitat": "Marine",
+#      "population": 10
+#     },
+#     {"name": "Vacko",
+#      "habitat": "Saharan Desert",
+#      "population": 100
+#     }
+# ]
 
-print(most_endangered(species_list))
+# print(most_endangered(species_list))
 
-# As part of conservation efforts, certain species are considered endangered and are represented by the string endangered_species. Each character in this string denotes a different endangered species. You also have a record of all observed species in a particular region, represented by the string observed_species. Each character in observed_species denotes a species observed in the region.
+# # As part of conservation efforts, certain species are considered endangered and are represented by the string endangered_species. Each character in this string denotes a different endangered species. You also have a record of all observed species in a particular region, represented by the string observed_species. Each character in observed_species denotes a species observed in the region.
 
-# Your task is to determine how many instances of the observed species are also considered endangered.
+# # Your task is to determine how many instances of the observed species are also considered endangered.
 
-# Note: Species are case-sensitive, so "a" is considered a different species from "A".
+# # Note: Species are case-sensitive, so "a" is considered a different species from "A".
 
-# Write a function to count the number of endangered species observed.
+# # Write a function to count the number of endangered species observed.
 
-def count_endangered_species(endangered_species, observed_species):
-    # Edge case: if theres no endangered species in observed at all.
-    # Count the number of observed species
-    counter = {}
-    count = 0
-    for i in observed_species:
-        counter[i] = counter.get(i,0) + 1
+# def count_endangered_species(endangered_species, observed_species):
+#     # Edge case: if theres no endangered species in observed at all.
+#     # Count the number of observed species
+#     counter = {}
+#     count = 0
+#     for i in observed_species:
+#         counter[i] = counter.get(i,0) + 1
     
-    for i in counter:
-        if i in endangered_species:
-            count += counter[i]
-    return count
-    # In another loop, if the observed species is endangered
-        # iterate the count by how many species are observed
-    # return the count
-endangered_species1 = "aA"
-observed_species1 = "aAAbbbb"
+#     for i in counter:
+#         if i in endangered_species:
+#             count += counter[i]
+#     return count
+#     # In another loop, if the observed species is endangered
+#         # iterate the count by how many species are observed
+#     # return the count
+# endangered_species1 = "aA"
+# observed_species1 = "aAAbbbb"
 
-endangered_species2 = "z"
-observed_species2 = "ZZ"
+# endangered_species2 = "z"
+# observed_species2 = "ZZ"
 
-print(count_endangered_species(endangered_species1, observed_species1)) 
-print(count_endangered_species(endangered_species2, observed_species2))  
+# print(count_endangered_species(endangered_species1, observed_species1)) 
+# print(count_endangered_species(endangered_species2, observed_species2))  
 
+# # Your art gallery has just been shipped a new collection of numbered art pieces, and you need to verify their authenticity. 
+# # The collection is considered "authentic" if it is a permutation of an array base[n].
+# # The base[n] array is defined as [1, 2, ..., n - 1, n, n], meaning it is an array of length n + 1 containing the 
+# # integers from 1 to n - 1 exactly once, and the integer n twice. For example, base[1] is [1, 1] and base[3] is [1, 2, 3, 3].
+
+# # Write a function is_authentic_collection that accepts an array of integers art_pieces and returns True
+# # if the given array is an authentic array, and otherwise returns False.
+
+# # Note: A permutation of integers represents an arrangement of these numbers. For example [3, 2, 1] and [2, 1, 3] 
+# # are both permutations of the series of numbers 1, 2, and 3.
+# def is_authentic_collection(art_pieces):
+#     # Sort the array
+#     # Intitialize a set
+#     # We should only see a duplicate at the end
+#     # If we reach the end of the list without that duplicate at the end return false.
+#     n = max(art_pieces)
+#     if n + 1 != len(art_pieces): # Checks if this actually has the length of a permutation
+#         return False # If not, return False
+    
+#     count = {} # Dictionary
+
+#     for i in art_pieces:
+#         count[i] = count.get(i,0) + 1 # Count the art pieces
+
+#     for i in range(1, n):
+#         if count.get(i,0) != 1:
+#             return False
+        
+#     return count.get(n, 0) == 2
+
+
+
+
+
+
+# collection1 = [2, 1, 3]
+# collection2 = [1, 3, 3, 2, 2]
+# collection3 = [0,0, 1, 1]
+
+# print(is_authentic_collection(collection1))
+# print(is_authentic_collection(collection2))
+# print(is_authentic_collection(collection3))
+
+# You are tasked with organizing a collection of art prints represented by a list of strings collection. 
+# You need to display these prints on a single wall in a 2D array format that meets the following criteria:
+# - The 2D array should contain only the elements of the array collection.
+# - Each row in the 2D array should contain distinct strings.
+# - The number of rows in the 2D array should be minimal.
+# Return the resulting array. If there are multiple answers, return any of them. 
+# Note that the 2D array can have a different number of elements on each row.
+
+def organize_exhibition(collection):
+    # Use a set to solve this problem
+    # Have our 2D list
+    # We'll add values into the set until we get a value that's already in the set.
+    # After we get that, we'll append a list of our set to the array.
+    # The set will be emptied after this and we'll keep doing this for the rest
+
+    # Greedy Method
+    # For each row start with an empty row
+    # Try to place as many prints as possible inside that row
+    # Once you cannot add to the row, start a new row
+    # Keep going and so on
+    result = []
+    collection_copy = collection.copy()
+
+    if len(set(collection)) == len(collection):
+        result.append(collection)
+        return result
+    
+    while collection_copy:
+        current_row = []
+        seen = set()
+        for i in collection_copy.copy():
+            if i not in seen:
+                current_row.append(i)
+                seen.add(i)
+                collection_copy.remove(i)
+        result.append(current_row)
+    return result
+
+        
+            
+
+        
+
+collection1 = ["O'Keefe", "Kahlo", "Picasso", "O'Keefe", "Warhol", 
+              "Kahlo", "O'Keefe"]
+collection2 = ["Kusama", "Monet", "Ofili", "Banksy"]
+
+print(organize_exhibition(collection1))
+print(organize_exhibition(collection2))
+        
+    
