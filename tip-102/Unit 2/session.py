@@ -375,28 +375,28 @@ def find_duplicate_chests(chests):
 
 # A subsequence is a sequence derived from the array by deleting some or no elements without changing the order of the remaining elements.
 
-def find_balanced_subsequence(art_pieces):
-    # Use a dictionary to count occurences of each number
-    # For each art piece in the dictionary:
-    # if n + 1 exists in the dictionary
-    # max_length = max(0,dict[n]  + dict[n+1])
-    # return our answer max_length
-    count = {}
-    max_length = 0
-    for i in art_pieces:
-        count[i] = count.get(i, 0) + 1
+# def find_balanced_subsequence(art_pieces):
+#     # Use a dictionary to count occurences of each number
+#     # For each art piece in the dictionary:
+#     # if n + 1 exists in the dictionary
+#     # max_length = max(0,dict[n]  + dict[n+1])
+#     # return our answer max_length
+#     count = {}
+#     max_length = 0
+#     for i in art_pieces:
+#         count[i] = count.get(i, 0) + 1
     
-    for n in count:
-        if n + 1 in count:
-            max_length = max(max_length, count[n] + count[n+1])
-    return max_length
-art_pieces1 = [1,3,2,2,5,2,3,7]
-art_pieces2 = [1,2,3,4]
-art_pieces3 = [1,1,1,1]
+#     for n in count:
+#         if n + 1 in count:
+#             max_length = max(max_length, count[n] + count[n+1])
+#     return max_length
+# art_pieces1 = [1,3,2,2,5,2,3,7]
+# art_pieces2 = [1,2,3,4]
+# art_pieces3 = [1,1,1,1]
 
-print(find_balanced_subsequence(art_pieces1))
-print(find_balanced_subsequence(art_pieces2))
-print(find_balanced_subsequence(art_pieces3))
+# print(find_balanced_subsequence(art_pieces1))
+# print(find_balanced_subsequence(art_pieces2))
+# print(find_balanced_subsequence(art_pieces3))
 
 # Imagine you are working on a wildlife conservation database. Write a function named most_endangered() 
 # that returns the species with the highest conservation priority based on its population.
@@ -517,46 +517,82 @@ print(find_balanced_subsequence(art_pieces3))
 # Return the resulting array. If there are multiple answers, return any of them. 
 # Note that the 2D array can have a different number of elements on each row.
 
-def organize_exhibition(collection):
-    # Use a set to solve this problem
-    # Have our 2D list
-    # We'll add values into the set until we get a value that's already in the set.
-    # After we get that, we'll append a list of our set to the array.
-    # The set will be emptied after this and we'll keep doing this for the rest
+# def organize_exhibition(collection):
+#     # Use a set to solve this problem
+#     # Have our 2D list
+#     # We'll add values into the set until we get a value that's already in the set.
+#     # After we get that, we'll append a list of our set to the array.
+#     # The set will be emptied after this and we'll keep doing this for the rest
 
-    # Greedy Method
-    # For each row start with an empty row
-    # Try to place as many prints as possible inside that row
-    # Once you cannot add to the row, start a new row
-    # Keep going and so on
-    result = []
-    collection_copy = collection.copy()
-
-    if len(set(collection)) == len(collection):
-        result.append(collection)
-        return result
+#     # Greedy Method
+#     # For each row start with an empty row
+#     # Try to place as many prints as possible inside that row
+#     # Once you cannot add to the row, start a new row
+#     # Keep going and so on
     
-    while collection_copy:
-        current_row = []
-        seen = set()
-        for i in collection_copy.copy():
-            if i not in seen:
-                current_row.append(i)
-                seen.add(i)
-                collection_copy.remove(i)
-        result.append(current_row)
+#     # result
+#     result = []
+#     # copy of collection so that we can modify accordingly and track the remaining elements
+#     art_remaining = collection.copy()
+#     # while collection.copy reamins
+#     while art_remaining:
+#         # create a new row for each
+#         current_list = []
+#         # Track the unique elements through the set
+#         unique_strings = set()
+#         # We have 2 options: initialize a pointer or loop through another copy so that you dont get an index error.
+#         # Loop through another copy
+#         for i in art_remaining.copy():
+#         # If the value is not in the set, add it to the current row, add it to the set to be tracked, and remove it from collection.copy()
+#             if i not in unique_strings:
+#                 unique_strings.add(i)
+#                 current_list.append(i)
+#                 art_remaining.remove(i)
+#             # After the if condition, add the row to the result
+#         result.append(current_list)
+#         # Out of the loop, return result.
+#     return result
+
+# collection1 = ["O'Keefe", "Kahlo", "Picasso", "O'Keefe", "Warhol", 
+#               "Kahlo", "O'Keefe"]
+# collection2 = ["Kusama", "Monet", "Ofili", "Banksy"]
+
+# print(organize_exhibition(collection1))
+# print(organize_exhibition(collection2))
+
+# Your gallery has been trying to increase it's online presence by hosting several virtual galleries. Each virtual gallery's web 
+# traffic is tracked through domain names, where each domain may have subdomains.
+
+# A domain like "modern.artmuseum.com" consists of various subdomains. At the top level, we have "com", at the next level, we have "artmuseum.com", 
+# and at the lowest level, "modern.artmuseum.com". When visitors access a domain like "modern.artmuseum.com", they also implicitly
+# visit the parent domains "artmuseum.com" and "com". A count-paired domain is represented as "rep d1.d2.d3" where rep is the number of visits 
+# to the domain and d1.d2.d3 is the domain itself. For example, "9001 modern.artmuseum.com" indicates that "modern.artmuseum.com" was visited 9001 times.
+# Given an array of count-paired domains cpdomains, return an array of the count-paired domains of each subdomain. The order of the output does not matter.
+
+def subdomain_visits(cpdomains):
+    # Initialize result array
+    result = []
+    # Initialize count to map count to domain
+    count = {}
+    
+    for i in cpdomains: # For every entry
+        split_string = i.split()
+        seperate_domains = split_string[1].split('.')
+        for n in range(len(seperate_domains)):
+            subdomain = ".".join(seperate_domains[n:])
+            count[subdomain] = count.get(subdomain, 0) + int(split_string[0])
+            
+    for domain, view_count in count.items():
+        result.append(str(view_count) + " " + domain) 
+
     return result
 
-        
-            
 
-        
+cpdomains1 = ["9001 modern.artmuseum.com"]
+cpdomains2 = ["900 abstract.gallery.com", "50 impressionism.com", 
+              "1 contemporary.gallery.com", "5 medieval.org"]
 
-collection1 = ["O'Keefe", "Kahlo", "Picasso", "O'Keefe", "Warhol", 
-              "Kahlo", "O'Keefe"]
-collection2 = ["Kusama", "Monet", "Ofili", "Banksy"]
+print(subdomain_visits(cpdomains1))
+print(subdomain_visits(cpdomains2))
 
-print(organize_exhibition(collection1))
-print(organize_exhibition(collection2))
-        
     
