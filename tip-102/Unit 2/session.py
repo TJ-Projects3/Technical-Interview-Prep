@@ -570,23 +570,28 @@ def find_duplicate_chests(chests):
 # Given an array of count-paired domains cpdomains, return an array of the count-paired domains of each subdomain. The order of the output does not matter.
 
 def subdomain_visits(cpdomains):
-    # Initialize result array
-    result = []
-    # Initialize count to map count to domain
-    count = {}
+    # Res hashmap
+    res = {}
+    # For every domain in cpdomains
+    for domain in cpdomains:
+        # Split the view count and domain by the space between them
+        view_count, address = domain.split(" ")
+        # Assign domain to key and view count to value
+        # Take each part of the domain by splitting the split domain again by the dots
+        dots_split = address.split(".")
+        # For every split dot domain
+        for i in range(len(dots_split)):
+            subdomain = '.'.join(dots_split[i:])
+            res[subdomain] = res.get(subdomain, 0) + int(view_count)
     
-    for i in cpdomains: # For every entry
-        split_string = i.split()
-        seperate_domains = split_string[1].split('.')
-        for n in range(len(seperate_domains)):
-            subdomain = ".".join(seperate_domains[n:])
-            count[subdomain] = count.get(subdomain, 0) + int(split_string[0])
-            
-    for domain, view_count in count.items():
-        result.append(str(view_count) + " " + domain) 
+    result = []
+    for key, val in res.items():
+        result.append(f"{val} {key}")
 
     return result
-
+        # Join each subdomain and assigning it to a variable by going in reverse iterated order each iteration (.com -> arts.com -> gov.arts.com)
+        # Use subdomain as the key and iterate the current split string view count to its CURRENT VALUE
+        # Return each item in a list using res.items()
 
 cpdomains1 = ["9001 modern.artmuseum.com"]
 cpdomains2 = ["900 abstract.gallery.com", "50 impressionism.com", 
@@ -594,5 +599,4 @@ cpdomains2 = ["900 abstract.gallery.com", "50 impressionism.com",
 
 print(subdomain_visits(cpdomains1))
 print(subdomain_visits(cpdomains2))
-
     
