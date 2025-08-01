@@ -17,13 +17,6 @@ def check_root(root):
             
     return False
 
-root = TreeNode(10)
-leaf1 = TreeNode(10)
-
-root.left = leaf1
-
-print(check_root(root))
-
 """
 Given the root of a binary tree, return a list representing the inorder traversal of its nodes' values.
 In an inorder traversal we traverse the left subtree, then the current node, then the right subtree.
@@ -73,3 +66,47 @@ def size(root):
     return count
     
 print(size(root))
+
+def tree_expression(root):
+    if root.val == "AND":
+        return root.left.val and root.right.val
+    
+    if root.val == "OR":
+        return root.left.val or root.right.val
+
+
+test = TreeNode("OR", TreeNode(False), TreeNode(True))
+
+print(tree_expression(test))
+
+def equality(root):
+    # Return True if both children are equal. The tree has AT MOST 3 NODES
+    if root.left and root.right:
+        return root.left.val == root.right.val
+    else:
+        return False
+
+root = TreeNode(0, TreeNode(1), TreeNode(2))
+
+print(equality(root))
+
+
+def left_path(root):
+	# We will traverse the left subtree, if there is one and keep track of the path with
+    # a list as we get to the leftmost node.
+    result = []
+
+    if root:
+        result.append(root.val)
+
+        while root.left:
+            result.append(root.left.val)
+            root = root.left
+    else:
+        return None
+    
+    return result
+
+treeBuild = TreeNode('a', TreeNode('b', TreeNode(1)), TreeNode('c', None, TreeNode('d')))
+
+print(left_path(treeBuild))
