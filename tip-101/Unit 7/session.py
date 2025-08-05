@@ -14,7 +14,7 @@ def is_power_of_four(n):
 	else:
 		return is_power_of_four(n//4)
 	
-print(is_power_of_four(15))
+print(is_power_of_four(25))
 print(is_power_of_four(16))
 print(is_power_of_four(64))
 print(is_power_of_four(0))

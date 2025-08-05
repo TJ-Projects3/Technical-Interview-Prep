@@ -40,6 +40,8 @@ def inorder_traversal(root):
     return result
 
 root = TreeNode(4, TreeNode(2, TreeNode(1), TreeNode(3)), TreeNode(5))
+
+print(inorder_traversal(root))
 """
 Given the root of a binary tree, write a function size() that returns the number of nodes in the binary tree.
 
@@ -96,17 +98,98 @@ def left_path(root):
     # a list as we get to the leftmost node.
     result = []
 
-    if root:
-        result.append(root.val)
-
-        while root.left:
-            result.append(root.left.val)
-            root = root.left
-    else:
+    if not root:
         return None
     
+    if not root.left:
+        return [root.val]
+    
+    return [root.val] + left_path(root.left)
+
+
+root = TreeNode('adam', TreeNode('bart', TreeNode(1), TreeNode(2)), TreeNode('charlie', None, TreeNode('d')))
+
+print(left_path(root))
+
+# Given the root of a binary tree, return a list representing the preorder traversal of its nodes' values. 
+# In an preorder traversal we traverse the current node, then the left subtree, then the right subtree.
+
+# # Example Input Tree: 
+# """For example:
+#       1
+#      / \
+#     /   \
+#    2     5
+#   / \    
+#  4   3 
+# """
+# # Input: root = 1
+# # Expected Output: [1,3,2]
+
+# # Input: root = None
+# # Output: []
+
+# # Example Input Tree
+# """ 1 """ 
+# # Input: root = 1
+# # Output: [1]
+
+def preorder_traversal(root):
+    result = []
+
+    def pre_traverse(current):
+        if current:
+            result.append(current.val)
+            
+            pre_traverse(current.left)
+
+            pre_traverse(current.right)
+    
+    pre_traverse(root)
     return result
+            
+    
+    # right_tree = preorder_traversal(root.right)
+    # left_tree = preorder_traversal(root.left)
+    # return [root.val] + left_tree + right_tree
 
-treeBuild = TreeNode('a', TreeNode('b', TreeNode(1)), TreeNode('c', None, TreeNode('d')))
+print(preorder_traversal(root))
 
-print(left_path(treeBuild))
+# Given the root of a binary tree and a value val, write a function is_lesser() 
+# that returns True if all the nodes in the tree have a value less than 
+# val and False otherwise. If the tree is empty, return False.
+
+# Evaluate the time complexity of your function.
+
+def is_lesser(root, val):
+    if root is None: # If tree is empty to begin with
+        return False # return False
+    
+    if root.val >= val: # If root.val is greater than val
+        return False # return False because all nodes should be
+    # lesser than val
+    
+    if not root.right and not root.left: # If there are no children left
+        return True # return True "early"
+    
+    return (True if not root.left else is_lesser(root.left, val) and 
+           True if not root.right else is_lesser(root.right, val))
+# Recursively check the left and right subtrees if there are children there
+# if there are no children return True by default, this will be overwritten
+# if there are ANY False at all
+# It will return True if both subtrees are valid and have nodes lesser than
+# the value parameter
+
+
+root = TreeNode(1, TreeNode(2, TreeNode(1), TreeNode(2)), TreeNode(5, None, TreeNode(6)))
+
+print(is_lesser(root, 8))
+
+# # Given a value and the root of a binary tree, write a function contains_greater() which returns
+# # True if any nodes greater than value exist in the tree. If no node greater 
+# # than value exist, return False. Assume the tree is balanced.
+
+# Evaluate the time complexity of your solution.
+
+    
+    
