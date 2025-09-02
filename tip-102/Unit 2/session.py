@@ -569,34 +569,73 @@ def find_duplicate_chests(chests):
 # to the domain and d1.d2.d3 is the domain itself. For example, "9001 modern.artmuseum.com" indicates that "modern.artmuseum.com" was visited 9001 times.
 # Given an array of count-paired domains cpdomains, return an array of the count-paired domains of each subdomain. The order of the output does not matter.
 
-def subdomain_visits(cpdomains):
-    # Res hashmap
-    res = {}
-    # For every domain in cpdomains
-    for domain in cpdomains:
-        # Split the view count and domain by the space between them
-        view_count, address = domain.split(" ")
-        # Assign domain to key and view count to value
-        # Take each part of the domain by splitting the split domain again by the dots
-        dots_split = address.split(".")
-        # For every split dot domain
-        for i in range(len(dots_split)):
-            subdomain = '.'.join(dots_split[i:])
-            res[subdomain] = res.get(subdomain, 0) + int(view_count)
+# def subdomain_visits(cpdomains):
+#     # Res hashmap
+#     res = {}
+#     # For every domain in cpdomains
+#     for domain in cpdomains:
+#         # Split the view count and domain by the space between them
+#         view_count, address = domain.split(" ")
+#         # Assign domain to key and view count to value
+#         # Take each part of the domain by splitting the split domain again by the dots
+#         dots_split = address.split(".")
+#         # For every split dot domain
+#         for i in range(len(dots_split)):
+#             subdomain = '.'.join(dots_split[i:])
+#             res[subdomain] = res.get(subdomain, 0) + int(view_count)
     
-    result = []
-    for key, val in res.items():
-        result.append(f"{val} {key}")
+#     result = []
+#     for key, val in res.items():
+#         result.append(f"{val} {key}")
 
-    return result
-        # Join each subdomain and assigning it to a variable by going in reverse iterated order each iteration (.com -> arts.com -> gov.arts.com)
-        # Use subdomain as the key and iterate the current split string view count to its CURRENT VALUE
-        # Return each item in a list using res.items()
+#     return result
+#         # Join each subdomain and assigning it to a variable by going in reverse iterated order each iteration (.com -> arts.com -> gov.arts.com)
+#         # Use subdomain as the key and iterate the current split string view count to its CURRENT VALUE
+#         # Return each item in a list using res.items()
 
-cpdomains1 = ["9001 modern.artmuseum.com"]
-cpdomains2 = ["900 abstract.gallery.com", "50 impressionism.com", 
-              "1 contemporary.gallery.com", "5 medieval.org"]
+# cpdomains1 = ["9001 modern.artmuseum.com"]
+# cpdomains2 = ["900 abstract.gallery.com", "50 impressionism.com", 
+#               "1 contemporary.gallery.com", "5 medieval.org"]
 
-print(subdomain_visits(cpdomains1))
-print(subdomain_visits(cpdomains2))
+# print(subdomain_visits(cpdomains1))
+# print(subdomain_visits(cpdomains2))
+
+# As a time traveling linguist, you are analyzing texts written in an ancient script. However, some words in 
+# the text are illegible and can't be deciphered. Write a function find_most_frequent_word() that accepts a string
+# text and a list of illegible words illegibles and returns the most frequent word in text that is not an illegible word.
+
+# We will use a dictionary to find the frequencies of the words, but before that we will switch all the letters to lowercase, to ensure we count
+# same letters.
+# We count the letters while checking that i is not in ineligibles
+# BEFORE ANYTHING we will have to clean the string using a for loop, we will check if the letter is a space or if it is alnum, if not we
+# want to strip that character. After cleaning, we will split each word into a list by their characters
+# This should be safe to view the max frequency now, use a for loop and everytime you see a new max update a variable max_key to the key of that new
+# max value.
+def find_most_frequent_word(text, illegibles):
+    count = {}
+    sentence = ""
+    max_num, max_key = float('-inf'), ""
+    for char in text:
+        if char.isalpha() or char == " ":
+            sentence += char.lower()
+
+    for i in sentence.split(" "):
+        if i not in illegibles:
+            count[i] = count.get(i, 0) + 1
+    
+    for key in count:
+        if count[key] > max_num:
+            max_num = count[key]
+            max_key = key
+    return max_key
+
+paragraph1 = "a."
+illegibles1 = []
+print(find_most_frequent_word(paragraph1, illegibles1)) 
+
+paragraph2 = "Bob hit a ball, the hit BALL flew far after it was hit."
+illegibles2 = ["hit"]
+print(find_most_frequent_word(paragraph2, illegibles2)) 
+
+
     

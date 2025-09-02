@@ -14,10 +14,10 @@ def is_power_of_four(n):
 	else:
 		return is_power_of_four(n//4)
 	
-print(is_power_of_four(25))
-print(is_power_of_four(16))
-print(is_power_of_four(64))
-print(is_power_of_four(0))
+# print(is_power_of_four(25))
+# print(is_power_of_four(16))
+# print(is_power_of_four(64))
+# print(is_power_of_four(0))
 
 """
 Binary search is a searching algorithm that allows us to efficiently find the index of a given value within a sorted list. 
@@ -127,7 +127,7 @@ def ternary_search(lst, target):
   # Return -1, indicating the target is not in the array.
 
 lst1 = [2, 4, 6, 8, 10, 12, 14] 
-print(ternary_search(lst1, 7))        
+# print(ternary_search(lst1, 7))        
 
 """
 Given a string, return True if it is a nesting of zero or more pairs of parentheses. 
@@ -150,7 +150,7 @@ def is_nested(paren_s):
       return False
 
 input = "()"
-print(is_nested(input))
+# print(is_nested(input))
 
 """
 Given the base case and recursive case, write a recursive function string_length() that returns the length of a string s 
@@ -176,10 +176,10 @@ wordOne = "ajfhe"
 wordTwo = "hireme"
 wordThree = "love"
 wordFour = "lolololololol"
-print(string_length(wordOne))
-print(string_length(wordTwo))
-print(string_length(wordThree))
-print(string_length(wordFour))
+# print(string_length(wordOne))
+# print(string_length(wordTwo))
+# print(string_length(wordThree))
+# print(string_length(wordFour))
 
 """
 Given a non-negative integer n, write a function sum_digits() that calculates and returns the sum of its digits recursively.
@@ -198,9 +198,9 @@ def sum_digits(n):
      else:
           return n % 10 + sum_digits(n // 10) # // gives us integer only 523// 10 = 52, instead of 52.3. Removes back digits.
 
-print(sum_digits(523))
-print(sum_digits(10))
-print(sum_digits(1))
+# print(sum_digits(523))
+# print(sum_digits(10))
+# print(sum_digits(1))
 
 
 """
@@ -244,9 +244,17 @@ def count_ones(lst):
              left = mid + 1
      return 0
      
-amounts = [0, 0, 0, 0, 1, 1, 1]
-print(count_ones(amounts))
+# amounts = [0, 0, 0, 0, 1, 1, 1]
+# print(count_ones(amounts))
 
 
+def factorial(n):
+     if n == 0: # Base Case
+          return 1
+     
+     return n * factorial(n-1) # Recursive Case
+
+print(factorial(6))
+     
                
                 

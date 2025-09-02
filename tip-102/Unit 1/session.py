@@ -53,25 +53,25 @@
 # # Understand: We are finding 3 unique indices where their elements together add up to zero.
 # # Plan: We will use a triple loop to search all possible elements and add the indices to see which equal zero.
 
-# def three_sum(nums):
-#     if not nums or nums == []:
-#         return []    
-#     n, res = len(nums), []
-#     for i in range(0, n, 3):
-#         for j in range(1, n, 2):
-#             for k in range(2, n, 1):
-#                 if nums[i] + nums[j] + nums[k] == 0:
-#                     res.append([nums[i], nums[j], nums[k]])
-#     return res
+def three_sum(nums):
+    if not nums or nums == []:
+        return []    
+    n, res = len(nums), []
+    for i in range(0, n, 3):
+        for j in range(1, n, 2):
+            for k in range(2, n, 1):
+                if nums[i] + nums[j] + nums[k] == 0:
+                    res.append([nums[i], nums[j], nums[k]])
+    return res
 
-# nums = [-1, 0, 1, 2, -1, -4]
-# print(three_sum(nums))
+nums = [-1, 0, 1, 2, -1, -4]
+print(three_sum(nums))
 
-# nums = [0, 1, 1]
-# print(three_sum(nums))
+nums = [0, 1, 1]
+print(three_sum(nums))
 
-# nums = [0, 0, 0]
-# print(three_sum(nums))
+nums = [0, 0, 0]
+print(three_sum(nums))
 
 # Write a function linear_search() to help Winnie the Pooh locate his lost items. 
 # The function accepts a list items and a target value as parameters. The function should return 
@@ -227,8 +227,8 @@ treasure_map2 = {
     "Island Peak": 5
 }
 
-print(total_treasures(treasure_map1)) 
-print(total_treasures(treasure_map2))
+# print(total_treasures(treasure_map1)) 
+# print(total_treasures(treasure_map2))
 
 # Taken captive, Captain Anne Bonny has been smuggled a secret message from her crew. She will know she can trust the message if it 
 # contains all of the letters in the alphabet. Given a string message containing only lowercase English letters and whitespace, write a 
@@ -251,8 +251,125 @@ def can_trust_message(message):
             
     return len(seen) == 26
 
-message1 = "sphinx of black quartz judge my vow"
-message2 = "trust me"
+# message1 = "sphinx of black quartz judge my vow"
+# message2 = "trust me"
 
-print(can_trust_message(message1))
-print(can_trust_message(message2))
+# print(can_trust_message(message1))
+# print(can_trust_message(message2))
+
+# Write a function print_todo_list() that accepts a list of strings named tasks. The function should then number 
+# and print each task on a new line using the format:
+
+# Pooh's To Dos:
+# 1. Task 1
+# 2. Task 2
+# ...
+
+def print_todo_list(task):
+    if not task:
+        print("Pooh's To Dos:")
+        return
+    
+    # Have a result with Pooh's To Dos: and a newline at then end
+    result = "Pooh's To Dos:\n"
+    for i in range(len(task)):
+        # As you go through tasks, increment each one with its number bullet (front) and a newline (end).
+        result += f"{i + 1}. {task[i]}\n"
+    print(result.rstrip())
+    return
+
+# task = ["Count all the bees in the hive", "Chase all the clouds from the sky", "Think", "Stoutness Exercises"]
+# print_todo_list(task)
+
+# task = []
+# print_todo_list(task)
+
+# Signs in the Hundred Acre Wood have been losing letters as Tigger bounces around 
+# stealing any letters he needs to spell out his name. Write a function tiggerfy() that accepts 
+# a string s, and returns a new string with the letters t, i, g, e, and r removed from it.
+
+def tiggerfy(s):
+    # We want to remove any occurences of t, i, g, e, or r from the string in-place and return the new
+    # string
+    # Build the string by iterating it into the result string if it is not t, i, g, e, or r
+    result = ""
+    letter_check = ["t", "i", "g", "e", "r"] # Still O(1) because its a set length of the constant 5
+    for i in s:
+        if i.lower() not in letter_check:
+            result += i
+    return result
+        
+# s = "suspicerous"
+# tiggerfy(s)
+
+# s = "Trigger"
+# tiggerfy(s)
+
+# s = "Hunny"
+# tiggerfy(s)
+
+
+def tiggerfy_two(word):
+    # T-I-Double Guh-Er: That spells Tigger! Write a function tiggerfy() that accepts a 
+    # string word and returns a new string that removes any substrings t, i, gg, and er from word. 
+    # The function should be case insensitive.
+    # Convert the word to lowercase using lower function for case insensitivity
+    lowercase_word = word.lower()
+    # Iteratively replace all the substrings given in the problem with nothing
+    lowercase_word = lowercase_word.replace("t", "")
+    lowercase_word = lowercase_word.replace("i", "")
+    lowercase_word = lowercase_word.replace("gg", "")
+    lowercase_word = lowercase_word.replace("er", "")
+
+    # After covering all leters/substrings, return the modified word
+    return lowercase_word
+
+# word = "Trigger"
+# print(tiggerfy_two(word))
+
+# word = "eggplant"
+# print(tiggerfy_two(word))
+
+# word = "Choir"
+# print(tiggerfy_two(word))
+
+# Example Output:
+
+# "r"
+# "eplan"
+# "Chor"
+
+# Given an array nums with n integers, write a function non_decreasing() that checks if nums could become
+#  non-decreasing by modifying at most one element.
+# We define an array is non-decreasing if nums[i] <= nums[i + 1] holds for every i (0-based) such that (0 <= i <= n - 2).
+
+def non_decreasing(nums):
+	# We will use a for loop in this problem to touch every nums value and compare it
+    # We will keep a count of values that are greater than the next element and if the count exceeds 1, we return False
+    count, i = 0, 0
+    while i + 1 < len(nums):
+        if nums[i] > nums[i + 1]:
+            count += 1
+
+            if count > 1:
+                return False
+        # If we have more than one error, we already know this cannot be fixed
+        
+            if i == 0 or nums[i - 1] <= nums[i + 1]:
+                nums[i] = nums[i + 1]
+            else:
+                nums[i + 1] = nums[i]
+        i += 1
+    return True
+    # We aren't just counting the amount of errors
+    # We are to see if we can actually fix that one modification
+
+# Example Usage:
+
+nums = [4, 2, 2, 0]
+print(non_decreasing(nums))
+
+nums = [4, 2, 1]
+print(non_decreasing(nums))
+        
+
