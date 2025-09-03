@@ -255,6 +255,26 @@ def factorial(n):
      return n * factorial(n-1) # Recursive Case
 
 print(factorial(6))
+
+
+# Problem 3: Recursive Sum
+
+# Without using the built-in sum() function, write a function sum_list() that calculates the sum of all values in a list recursively.
+
+# What is the time complexity of this function? What is the space complexity?
+
+def sum_list(lst):
+	# Recursion
+      # Splice the list while recursively calling it
+      if len(lst) == 0:
+           return 0
+      
+      return lst[0] + sum_list(lst[1:])
+
+# The time complexity is O(n) because of the recursive stack and memory is O(n) due to us splicing at every iteration?
+
+nums_ex = [1,2,3,4,6]
+print(sum_list(nums_ex))
      
                
                 
