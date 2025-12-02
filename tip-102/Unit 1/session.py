@@ -64,14 +64,14 @@ def three_sum(nums):
                     res.append([nums[i], nums[j], nums[k]])
     return res
 
-nums = [-1, 0, 1, 2, -1, -4]
-print(three_sum(nums))
+# nums = [-1, 0, 1, 2, -1, -4]
+# print(three_sum(nums))
 
-nums = [0, 1, 1]
-print(three_sum(nums))
+# nums = [0, 1, 1]
+# print(three_sum(nums))
 
-nums = [0, 0, 0]
-print(three_sum(nums))
+# nums = [0, 0, 0]
+# print(three_sum(nums))
 
 # Write a function linear_search() to help Winnie the Pooh locate his lost items. 
 # The function accepts a list items and a target value as parameters. The function should return 
@@ -343,33 +343,148 @@ def tiggerfy_two(word):
 #  non-decreasing by modifying at most one element.
 # We define an array is non-decreasing if nums[i] <= nums[i + 1] holds for every i (0-based) such that (0 <= i <= n - 2).
 
-def non_decreasing(nums):
-	# We will use a for loop in this problem to touch every nums value and compare it
-    # We will keep a count of values that are greater than the next element and if the count exceeds 1, we return False
-    count, i = 0, 0
-    while i + 1 < len(nums):
-        if nums[i] > nums[i + 1]:
-            count += 1
+# def non_decreasing(nums):
+# 	# We will use a for loop in this problem to touch every nums value and compare it
+#     # We will keep a count of values that are greater than the next element and if the count exceeds 1, we return False
+#     count, i = 0, 0
+#     while i + 1 < len(nums):
+#         if nums[i] > nums[i + 1]:
+#             count += 1
 
-            if count > 1:
-                return False
-        # If we have more than one error, we already know this cannot be fixed
+#             if count > 1:
+#                 return False
+#         # If we have more than one error, we already know this cannot be fixed
         
-            if i == 0 or nums[i - 1] <= nums[i + 1]:
-                nums[i] = nums[i + 1]
-            else:
-                nums[i + 1] = nums[i]
-        i += 1
-    return True
-    # We aren't just counting the amount of errors
-    # We are to see if we can actually fix that one modification
+#             if i == 0 or nums[i - 1] <= nums[i + 1]:
+#                 nums[i] = nums[i + 1]
+#             else:
+#                 nums[i + 1] = nums[i]
+#         i += 1
+#     return True
+#     # We aren't just counting the amount of errors
+#     # We are to see if we can actually fix that one modification
+
+# # Example Usage:
+
+# nums = [4, 2, 2, 0]
+# print(non_decreasing(nums))
+
+# nums = [4, 2, 1]
+# print(non_decreasing(nums))
+        
+
+# Eeyore has collected two piles of sticks to rebuild his house and needs to choose pairs of sticks whose lengths are the right proportion. Write a function good_pairs() that accepts two integer arrays pile1 and pile2 where each integer represents the length of a stick. The function also accepts a positive integer k. The function should return the number of good pairs.
+
+# A pair (i, j) is called good if pile1[i] is divisible by pile2[j] * k. Assume 0 <= i <= len(pile1) - 1 and 0 <= j <= len(pile2) - 1.
 
 # Example Usage:
 
-nums = [4, 2, 2, 0]
-print(non_decreasing(nums))
+# pile1 = [1, 3, 4]
+# pile2 = [1, 3, 4]
+# k = 1
+# good_pairs(pile1, pile2, k)
 
-nums = [4, 2, 1]
-print(non_decreasing(nums))
-        
+# pile1 = [1, 2, 4, 12]
+# pile2 = [2, 4]
+# k = 3
+# good_pairs(pile1, pile2, k)
 
+# Searching for number of good pairs, which is pile1[i] % (pile2[j] * k) == 0
+# We will use a double for loop to consider each number in the list
+# If it meets the condition we'll iterate and if not, we will continue the loop
+
+# def good_pairs(pile1, pile2, k):
+#     good_pairs = 0
+
+#     for i in range(len(pile1)):
+#         for j in range(len(pile2)):
+#             if pile1[i] % (pile2[j] * k) == 0:
+#                 good_pairs += 1
+    
+#     return good_pairs
+
+# pile1 = [1, 3, 4]
+# pile2 = [1, 3, 4]
+# k = 1
+# print("Answer:", good_pairs(pile1, pile2, k))
+
+# pile1 = [1, 2, 4, 12]
+# pile2 = [2, 4]
+# k = 3
+# print("Answer:", good_pairs(pile1, pile2, k))
+
+# In the extended universe of fictional bears, Goldilocks finds an enticing list of numbers in the Three Bears' house.
+#  She doesn't want to take a number that's too high or too low - she wants a number that's juuust right. Write a function 
+#  goldilocks_approved() that takes in the list of distinct positive integers nums and returns any number from the list 
+#  that is neither the minimum nor the maximum value in the array, or -1 if there is no such number.
+
+# Return the selected integer.
+
+# Create a for loop to iterate through nums and take the first number that we find that is == to the max or min of nums.
+def goldilocks_approved(nums):
+    if len(nums) <= 2:
+        return - 1
+
+    for i in nums:
+        if i != min(nums) and i != max(nums):
+            return i
+    return -1
+
+# nums = [3, 2, 1, 4]
+# print(goldilocks_approved(nums))
+
+# nums = [1, 2]
+# print(goldilocks_approved(nums))
+
+# nums = [2, 1, 3]
+# print(goldilocks_approved(nums))
+
+# Pooh is eating all of his hunny jars in order of smallest to largest. Given a list of integers hunny_jar_sizes, 
+# write a function delete_minimum_elements() that continuously removes the minimum element until the list is empty.
+#  Return a new list of the elements of hunny_jar_sizes in the order in which they were removed.
+
+# hunny_jar_sizes is the input, a list of sizes that are randomly sorted.
+# Our output is result, basically a sorted list from least to greatest of hunny_jar_sizes
+# We basically want a sorted list with the minimum elements first and the maximum elements last 
+# as the minimum elements are removed from the original and added to the sorted list, until the original list is empty.
+# We are removing minimum numbers specifically and adding them into a new list simultaneously.
+# Some considerations: the original list could be empty, we want to be able to use the list in some sort of loop even while it changes, so no for loop.
+# Edge cases: empty original list, all the same numbers in the original list, negative numbers in the lists, etc.
+
+def delete_minimum_elements(hunny_jar_sizes):
+    result = []
+    while len(hunny_jar_sizes) != 0:
+        min_val = min(hunny_jar_sizes)
+        hunny_jar_sizes.remove(min_val)
+        result.append(min_val)
+    return result
+
+hunny_jar_sizes = [5, 3, 2, 4, 1]
+print(delete_minimum_elements(hunny_jar_sizes))
+
+hunny_jar_sizes = [5, 2, 1, 8, 2]
+print(delete_minimum_elements(hunny_jar_sizes))
+
+# Write a function sum_of_digits() that accepts an integer num and returns the sum of num's digits.
+# We will us floor division to get the value of every single number
+# Our input is the int num, and our output is the sum of all digits of num.
+# Our solution needs to have a way to sum each number individually, using floor division means we have to find the number to do this for each.
+# The int is 0 or a negative number
+# We will mod our number by 10 to get the last digit, and using our while loop we will floor divide to last digit out and go through the same process
+# with a new number with 1 less digit
+
+def sum_of_digits(num):
+    total_num  = 0
+    while num > 0:
+        last_digit = num % 10
+        total_num += last_digit
+        num //= 10
+    return total_num
+
+num = 423
+print(sum_of_digits(num))
+
+num = 4
+print(sum_of_digits(num))
+
+    

@@ -95,37 +95,37 @@ If title is not in the library, then add it and set quantity to 1.
 # Plan: Iterate through a for loop, to see all the keys and which possibly matches with title being returned.
 # if you find the title add one to its value. If you cannot find the title, create a new key with value 1.
 
-def return_book(title, library):
-    if title in library:
-        library[title] += 1
-    else:
-        library[title] = 1
-    return library
+# def return_book(title, library):
+#     if title in library:
+#         library[title] += 1
+#     else:
+#         library[title] = 1
+#     return library
 
-library = {"The Hobbit": 2, "1984": 1, "The Great Gatsby": 4}
+# library = {"The Hobbit": 2, "1984": 1, "The Great Gatsby": 4}
 
-updated_lib = return_book("1984", library)
-print(updated_lib)
+# updated_lib = return_book("1984", library)
+# print(updated_lib)
 
-updated_lib = return_book("The Giver", library)
-print(updated_lib)
+# updated_lib = return_book("The Giver", library)
+# print(updated_lib)
 
 """
 Write a function dict_difference() that takes two dictionaries and returns a new dictionary 
 that contains only the key-value pairs found exclusively in the first dictionary but not in the second.
 """
-# 
-def dict_difference(d1, d2):
-    d3 = {}
-    for val in d1:
-        if val not in d2:
-            d3[val] = d1[val]     
-    return d3
+ 
+# def dict_difference(d1, d2):
+#     d3 = {}
+#     for val in d1:
+#         if val not in d2:
+#             d3[val] = d1[val]     
+#     return d3
 
-d1 = {'a': 1, 'b': 2, 'c': 3, 'd': 4}
-d2 = {'b': 2, 'd': 1}
+# d1 = {'a': 1, 'b': 2, 'c': 3, 'd': 4}
+# d2 = {'b': 2, 'd': 1}
 
-print(dict_difference(d1,d2))
+# print(dict_difference(d1,d2))
 
 # Given the head of a linked list, return a dictionary that maps each unique element in the list to its frequency.
 # Evaluate the time and space complexity of your solution. Define your variables and provide a rationale for why you believe your solution
@@ -146,8 +146,8 @@ def frequency_map(head):
            current = current.next
      return res
 
-head_land = Node(1, Node( 2, Node(2, Node(3, Node(3, Node(1))))))
-print(frequency_map(head_land))
+head_one = Node(1, Node( 2, Node(2, Node(3, Node(3, Node(1, Node(4)))))))
+print(frequency_map(head_one))
 
 # Understand: We want to delete the node of a linked list, given the value in the linked list.
 
@@ -158,19 +158,57 @@ def delete_node(head, val):
       previous = temp_head
       current = head
       while current:
-            if current.val == val:
+            if current.value == val:
                 previous.next = current.next
 
             previous = current
             current = current.next
       return temp_head.next
-                  
+
+# We are returning the frequency of a specific value (given by val) in the linked list (given by head)
+# We will traverse through the list and check all the values to see if they match with val, if they do
+# we simply iterate a counter.
+
+def count_element(head, val):
+    count = 0
+    current = head
+    while current:
+        if current.value == val:
+                count += 1
+        current = current.next
+    return count
+
+print("Frequency:", count_element(head_one, 4))
     
-      
+# Helper function to print the linked list
+def print_list(node):
+    current = node
+    while current:
+        print(current.value, end=" -> " if current.next else "")
+        current = current.next
+    print()
 
 
+# I have a bug! 
+def remove_tail(head):
+    if head is None: # If the list is empty, return None
+        return None
+    if head.next is None: # If there's only one node, removing it leaves the list empty
+        return None 
+		
+	# Start from the head and find the second-to-last node
+    current = head
+    while current.next.next: 
+        current = current.next
 
-        
+    current.next = None # Remove the last node by setting second-to-last node to None
+    return head
+
+print_list(head_one)
+remove_tail(head_one)
+print_list(head_one)
+
+
 
 
     

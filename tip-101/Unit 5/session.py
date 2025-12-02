@@ -58,19 +58,19 @@ print(f"{player1.character} was number {player1.get_tournament_place(opponents_o
 
 # Note: The "head" of a linked list is the first element in the linked list. Equivalent to lst[0] of a normal list.
 
-class Node:
-    def __init__(self, value, next=None):
-        self.value = value
-        self.next = next
+# class Node:
+#     def __init__(self, value, next=None):
+#         self.value = value
+#         self.next = next
         
 	# We know we will traverse partially through the list to place the value.
     # It will be the second node, so right next to head, this is even more efficient
     # We could traverse but not necessary, we'll just do it in a different way for efficiency.
         
-    def add_second(head, val):
-         new_node = Node(val, head.next)
-         head.next = new_node
-         return head
+    # def add_second(head, val):
+    #      new_node = Node(val, head.next)
+    #      head.next = new_node
+    #      return head
 
     # Adding the node in-place at the second spot
 	#  1 -> 2 -> 3
@@ -84,28 +84,102 @@ class Node:
     # We will modify the values and increment them by one as we go
     # Then return the new modified list (head).
 
-def increment_ll(head):
-    current = head # list pointer
-    while current:
-        current.value = current.value + 1 # Increment by 1
-        current = current.next
-    return head
+# def increment_ll(head):
+#     current = head # list pointer
+#     while current:
+#         current.value = current.value + 1 # Increment by 1
+#         current = current.next
+#     return head
 
-node3 = Node(5, None)              
-node2 = Node(4, node3)
-node1 = Node(3, node2)
+# node3 = Node(5, None)              
+# node2 = Node(4, node3)
+# node1 = Node(3, node2)
 
-print("Original:", node1.value)
+# print("Original:", node1.value, "->", node2.value, "->", node3.value)
 
-node1 = increment_ll(node1)
-# node1: 6 -> 7 -> 8
-print("Incremented by 1:", node1.value)
+# node1 = increment_ll(node1)
+#  node1: 4 -> 5 -> 6
+# print("Incremented by 1:", node1.value)
 
-node1 = increment_ll(node1)
-# my_list: 7 -> 8 -> 9
-print("Incremented by 1 a second time:", node1.value)
     
 
+# def find_min(head):
+#     # Traverse the nodes and search each value
+#     # Save the minimum at eachas you compare them with node.val < min: then min = node.val
+#     # ASSUME the linked list contains only numbers, so even better.
+#     current = head
+#     min_value = float('inf')
+#     while current:
+#         if current.value < min_value:
+#             min_value = current.value
+#         current = current.next
+#     return min_value #Return the min value not the linked list
+
+# print(find_min(node1))
+
+class Node:
+    def __init__(self, value, next=None, prev=None):
+        self.value = value
+        self.next = next
+        self.prev = prev
+
+def get_length(node):
+    # Doubly linked list meaning you can go forwards and backwards using next and prev
+    # We will use two pointers one on the left and one on the right.
+    # O (n + n) solution with two for loops
+    # Keep iterating until we reach None for left and right pointers
+    current = node.next
+    length = 1 # Counted current node
+    
+    while current:
+         current = current.next
+         length += 1
          
+    current = node.prev
+    
+    while current:
+         length += 1
+         current = current.prev
+         
+    
+    return length
+
+# 3 <-> 5 <-> 6 <-> 7 ----> none after 7
+# ^ (5)      ^ (4) ^     ^ (2)    ^ (3) BUT ITS NONE
+
+node1 = Node(3)
+node2 = Node(5)
+node3 = Node(6)
+node4 = Node(7)
+    
+# Link them together
+node1.next = node2
+node2.prev = node1
+node2.next = node3
+node3.prev = node2
+node3.next = node4
+node4.prev = node3
+
+print("Length:", get_length(node3))
+
+
+def print_reverse(tail):
+     
+	# Traverse the linked list using prev at each iteration
+    # Print the val we get at each iteration
+     current = tail
+     while current:
+          if current.prev is None:
+               print(current.value, end='')
+          else:
+            print(current.value, end=' ')
+          current = current.prev
+
+print_reverse(node4)
+
+
+
+         
+    
 
 		
