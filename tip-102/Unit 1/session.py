@@ -459,32 +459,114 @@ def delete_minimum_elements(hunny_jar_sizes):
         result.append(min_val)
     return result
 
-hunny_jar_sizes = [5, 3, 2, 4, 1]
-print(delete_minimum_elements(hunny_jar_sizes))
+# hunny_jar_sizes = [5, 3, 2, 4, 1]
+# print(delete_minimum_elements(hunny_jar_sizes))
 
-hunny_jar_sizes = [5, 2, 1, 8, 2]
-print(delete_minimum_elements(hunny_jar_sizes))
+# hunny_jar_sizes = [5, 2, 1, 8, 2]
+# print(delete_minimum_elements(hunny_jar_sizes))
 
 # Write a function sum_of_digits() that accepts an integer num and returns the sum of num's digits.
-# We will us floor division to get the value of every single number
+# We will use floor division to get the value of every single number
 # Our input is the int num, and our output is the sum of all digits of num.
-# Our solution needs to have a way to sum each number individually, using floor division means we have to find the number to do this for each.
-# The int is 0 or a negative number
-# We will mod our number by 10 to get the last digit, and using our while loop we will floor divide to last digit out and go through the same process
-# with a new number with 1 less digit
+# Our solution needs to have a way to sum each digit individually, using floor division meaning we have to find the number divide by for each.
+# Edge cases: The int is 0 or a negative number
+# Using a while loop (while num != 0), we will mod our number by 10 to get the last digit, then we will floor divide to get the last digit out
+# and go through the same process with a new number with 1 less digit
+
+# 523 % 10 = 3, 523 // 10 = 52.3 -> floor division ( // ) really equals 52
+# 52 % 10 = 2, 52 // 10 = 5.2 == 5
+# 5 % 10 = 5, 5 // 10 = 0.2 == 0.
+
+# 5 + 2 + 3 = 9 (add all the digits to total variable as we get them)
 
 def sum_of_digits(num):
-    total_num  = 0
-    while num > 0:
-        last_digit = num % 10
-        total_num += last_digit
+    total = 0 # take the sum of all digits
+    while num != 0:
+        digit = num % 10
+        total += digit
         num //= 10
-    return total_num
+    return total
 
-num = 423
-print(sum_of_digits(num))
+# num = 423
+# print(sum_of_digits(num))
 
-num = 4
-print(sum_of_digits(num))
+# num = 405
+# print(sum_of_digits(num))
 
+# Given an array nums with n integers, write a function non_decreasing() that checks if nums could 
+# become non-decreasing by modifying at most one element. We define an array is non-decreasing if 
+# nums[i] <= nums[i + 1] holds for every i (0-based) such that (0 <= i <= n - 2).
+
+# We will iterate through each number and keep a count of how many nums[i] > nums[i + 1] in the list.
+# If the count is more than or equal to 2, we return False because it requires more than one replacement
+# If the count is less than 2, we return True because it only needs one or even no replacements.
+
+def non_decreasing(nums):
+    count = 0
+    for i in range(len(nums) - 1):
+        if nums[i] > nums[i + 1]:
+            count += 1
+    return True if count < 2 else False
+
+nums = [4, 2, 3]
+print(non_decreasing(nums))
+
+nums = [4, 2, 1]
+print(non_decreasing(nums))
+
+nums = [1, 1, 1]
+print(non_decreasing(nums))
+
+nums = [1, 12, 2]
+print(non_decreasing(nums))
+
+nums = [3, 4, 3, 2]
+print(non_decreasing(nums))
+
+# Christopher Robin set up a scavenger hunt for Pooh, but it's a blustery day and several hidden clues have blown away. 
+# Write a function find_missing_clues() to help Christopher Robin figure out which clues he needs to remake. The function 
+# accepts two integers lower and upper and a unique integer array clues. All elements in clues are within the inclusive range [lower, upper].
+
+# A clue x is considered missing if x is in the range [lower, upper] and x is not in clues. Return the shortest sorted list of ranges that 
+# exactly covers all the missing numbers. That is, no element of clues is included in any of the ranges, and each missing number is covered 
+# by one of the ranges.
+
+# We will use a nested for loop, one to reset the current range list, and the other to add the first and second number in the current range.
+# Then the range will be added into the result list.
+# for i in range(n - 1)  
+#    curr_range = []
+# for i in range(n)
+#   add first and second number into range, IF they are within the lower and upper bound
+#   append it into result list once they have been added
+
+def find_missing_clues(clues, lower, upper):
+    n = len(clues)
+    result = []
+
+    if len(clues) < 2:
+        return []
     
+    range_list = []
+    for i in range(n - 1):
+        first, second = clues[i] + 1, clues[i + 1] - 1
+        print(first, second)
+        if first not in clues and second not in clues and first <= second:
+            if second > lower and first < upper:
+                range_list = [first, second]
+                result.append(range_list)
+                range_list = []
+        else:
+            pass
+    return result
+
+clues = [0, 1, 3, 50, 75]
+lower = 0
+upper = 99
+print(find_missing_clues(clues, lower, upper))
+
+clues = [-1]
+lower = -1
+upper = -1
+print(find_missing_clues(clues, lower, upper))
+
+                 
