@@ -41,7 +41,7 @@ def inorder_traversal(root):
 
 root = TreeNode(4, TreeNode(2, TreeNode(1), TreeNode(3)), TreeNode(5))
 
-print(inorder_traversal(root))
+# print(inorder_traversal(root))
 """
 Given the root of a binary tree, write a function size() that returns the number of nodes in the binary tree.
 
@@ -67,19 +67,24 @@ def size(root):
             stack.append(node.left)
     return count
     
-print(size(root))
+# print(size(root))
+
+# You are given the root of a binary tree that has exactly 3 nodes: the root, its left child, 
+# and its right child. The left and right child have a boolean value of either True or False.
+# The root has a string value of either AND or OR. Apply the boolean operation of the root to its two children. 
+# Return True if the result of the expression is truth and False otherwise. Evaluate the time complexity of your function.
 
 def tree_expression(root):
-    if root.val == "AND":
-        return root.left.val and root.right.val
-    
-    if root.val == "OR":
-        return root.left.val or root.right.val
+    if root.right and root.left:
+        if root.val == "AND":
+            return root.left.val and root.right.val
+        
+        if root.val == "OR":
+            return root.left.val or root.right.val
+        
+root = TreeNode("AND", TreeNode(True), TreeNode(True))
 
-
-test = TreeNode("OR", TreeNode(False), TreeNode(True))
-
-print(tree_expression(test))
+print(tree_expression(root))
 
 def equality(root):
     # Return True if both children are equal. The tree has AT MOST 3 NODES
@@ -90,7 +95,7 @@ def equality(root):
 
 root = TreeNode(0, TreeNode(1), TreeNode(2))
 
-print(equality(root))
+# print(equality(root))
 
 
 def left_path(root):
@@ -109,7 +114,7 @@ def left_path(root):
 
 root = TreeNode('adam', TreeNode('bart', TreeNode(1), TreeNode(2)), TreeNode('charlie', None, TreeNode('d')))
 
-print(left_path(root))
+# print(left_path(root))
 
 # Given the root of a binary tree, return a list representing the preorder traversal of its nodes' values. 
 # In an preorder traversal we traverse the current node, then the left subtree, then the right subtree.
@@ -153,7 +158,7 @@ def preorder_traversal(root):
     # left_tree = preorder_traversal(root.left)
     # return [root.val] + left_tree + right_tree
 
-print(preorder_traversal(root))
+# print(preorder_traversal(root))
 
 # Given the root of a binary tree and a value val, write a function is_lesser() 
 # that returns True if all the nodes in the tree have a value less than 
@@ -183,13 +188,53 @@ def is_lesser(root, val):
 
 root = TreeNode(1, TreeNode(2, TreeNode(1), TreeNode(2)), TreeNode(5, None, TreeNode(6)))
 
-print(is_lesser(root, 8))
+# print(is_lesser(root, 8))
 
 # # Given a value and the root of a binary tree, write a function contains_greater() which returns
 # # True if any nodes greater than value exist in the tree. If no node greater 
 # # than value exist, return False. Assume the tree is balanced.
 
 # Evaluate the time complexity of your solution.
+## Later ##
 
+# With a tree of at most 3 nodes, check if the root value is equal to the sum of its children. Return True if not False. 
+def check_tree(root):
+    total = 0
+    if not root:
+        return False
     
+    if root.left:
+        total += root.left.val
+
+    if root.right:
+        total += root.right.val
+
+    return total == root.val
+
+root = TreeNode(20, TreeNode(50, TreeNode(67)), TreeNode(10))
+print(check_tree(root))
+
+
+# Find leftmost node and return it
+def left_most(root):
+    if not root:
+        return False
     
+    while root.left:
+        root = root.left
+
+    return root.val
+
+# print(left_most(root))
+
+# Find leftmost node and return it (recursively)
+def left_most(root):
+    if not root:
+        return False
+    
+    if root.left:
+        return left_most(root.left)
+  
+    return root.val
+
+print(left_most(root))
