@@ -84,7 +84,7 @@ def tree_expression(root):
         
 root = TreeNode("AND", TreeNode(True), TreeNode(True))
 
-print(tree_expression(root))
+# print(tree_expression(root))
 
 def equality(root):
     # Return True if both children are equal. The tree has AT MOST 3 NODES
@@ -211,8 +211,8 @@ def check_tree(root):
 
     return total == root.val
 
-root = TreeNode(20, TreeNode(50, TreeNode(67)), TreeNode(10))
-print(check_tree(root))
+root = TreeNode(20, TreeNode(3, TreeNode(5)), TreeNode(10))
+# print(check_tree(root))
 
 
 # Find leftmost node and return it
@@ -237,4 +237,49 @@ def left_most(root):
   
     return root.val
 
-print(left_most(root))
+# print(left_most(root))
+
+# Return the leftmost path of the tree root (all nodes) in a list.
+def left_path(root):
+    if not root:
+        return []
+    
+    return [root.val] + left_path(root.left)
+
+print(left_path(root))
+
+def left_path(root):
+    result = []
+
+    if not root:
+        return []
+    
+    current = root
+    while current:
+        result.append(current.val)
+        current = current.left
+    return result
+
+print(left_path(root))
+
+def preorder_traversal(root):
+    if not root:
+        return []
+    return [root.val] + preorder_traversal(root.left) + preorder_traversal(root.right)
+
+print(preorder_traversal(root))
+
+# Given the root of a binary tree and a value val, write a function is_lesser() that returns True
+# if all the nodes in the tree have a value less than val and False otherwise. If the tree is empty, return False.
+# Evaluate the time complexity of your function.
+
+def is_lesser(root, value):
+    if not root:
+        return True
+    
+    if root.val > value:
+        return False
+    
+    return is_lesser(root.left, value) and is_lesser(root.right, value)
+
+print(is_lesser(root, 1))
