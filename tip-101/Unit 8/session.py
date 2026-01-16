@@ -211,7 +211,7 @@ def check_tree(root):
 
     return total == root.val
 
-root = TreeNode(20, TreeNode(3, TreeNode(5)), TreeNode(10))
+# root = TreeNode(20, TreeNode(3, TreeNode(5)), TreeNode(10))
 # print(check_tree(root))
 
 
@@ -246,7 +246,7 @@ def left_path(root):
     
     return [root.val] + left_path(root.left)
 
-print(left_path(root))
+# print(left_path(root))
 
 def left_path(root):
     result = []
@@ -260,14 +260,14 @@ def left_path(root):
         current = current.left
     return result
 
-print(left_path(root))
+# print(left_path(root))
 
 def preorder_traversal(root):
     if not root:
         return []
     return [root.val] + preorder_traversal(root.left) + preorder_traversal(root.right)
 
-print(preorder_traversal(root))
+# print(preorder_traversal(root))
 
 # Given the root of a binary tree and a value val, write a function is_lesser() that returns True
 # if all the nodes in the tree have a value less than val and False otherwise. If the tree is empty, return False.
@@ -282,4 +282,97 @@ def is_lesser(root, value):
     
     return is_lesser(root.left, value) and is_lesser(root.right, value)
 
-print(is_lesser(root, 1))
+# print(is_lesser(root, 1))
+
+
+# Given a value and the root of a binary tree, write a function contains_greater() which returns True if any nodes greater 
+# than value exist in the tree. If no node greater than value exist, return False. Assume the tree is balanced.
+# Evaluate the time complexity of your solution.
+
+# Return True if theres a number greater than value in the tree, else False.
+# Base case of checking if the node is empty, return False for that path
+# Another case of if we find a value greater in the tree return True.
+# Recursively iterate through all paths using root.left and root.right.
+# we will return the recrusive statements with or between, because we only need one to be True (greater than value).
+
+def contains_greater(root, value):
+    if not root:
+        return False
+    
+    if root.val > value:
+        return True
+    
+    return contains_greater(root.left, value) or contains_greater(root.right, value)
+
+# print(contains_greater(root, 115))
+
+# Given a value and the root of a binary search tree, write a function contains_greater_bst() 
+# which returns True if any nodes greater than value exist in the tree. If no node greater than value exists, 
+# return False. Assume the tree is balanced. Evaluate the time complexity of your solution.
+
+def contains_greater_bst(root, value):
+    if not root:
+        return False
+    
+    if root.val > value:
+        return True
+    
+    return contains_greater_bst(root.right, value)
+
+root = TreeNode(16, TreeNode(200, TreeNode(8)), TreeNode(10))
+# print(contains_greater_bst(root, 8))
+
+# Given the root of a binary tree, write a function leaf_sum() that returns True 
+# if the sum of the values of all the leaves equal the sum of the value of the root. 
+# Return False otherwise. Evaluate the time complexity of your function
+
+def sum_leaves(root):
+    if not root:
+        return 0
+    
+    if not root.left and not root.right:
+        return root.val  
+    
+    return sum_leaves(root.left) + sum_leaves(root.right)
+
+# print(sum_leaves(root))
+
+# My Previous Approach:
+def sum_leaves(root):
+    if not root:
+        return 0
+
+    if not root.left and not root.right:
+        return root.val
+    
+    return sum_leaves(root.left) + sum_leaves(root.right)
+
+def is_even(root):
+    if not root:
+        return True
+    
+    if root.val % 2 != 0:
+        return False
+    
+    return is_even(root.left) and is_even(root.right)
+
+print(is_even(root))
+
+
+def tree_max(root):
+    if not root:
+        return None
+    
+    max_left = tree_max(root.left)
+    max_right = tree_max(root.right)
+
+    result = root.val
+    if max_left is not None:
+        result = max(result, max_left)
+    if max_right is not None:
+        result = max(result, max_right)
+
+    return result
+    
+
+print(tree_max(root))
