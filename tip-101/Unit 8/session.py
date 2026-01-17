@@ -358,6 +358,27 @@ def is_even(root):
 
 print(is_even(root))
 
+# Iterative method
+def is_even(root):
+    if not root:
+        return False
+    
+    stack = [root]
+    while stack:
+        current = stack.pop()
+
+        if current.val % 2 != 0:
+            return False
+        
+        if current.right is not None:
+            stack.append(current.right)
+
+        if current.left is not None:
+            stack.append(current.left)
+
+    return True
+
+print(is_even(root))
 
 def tree_max(root):
     if not root:
@@ -374,5 +395,57 @@ def tree_max(root):
 
     return result
     
+print(tree_max(root))
+
+
+def tree_max(root):
+    if not root:
+        return None
+    
+    stack = [root]
+    max_value = float('-inf')
+
+    while stack:
+        curr = stack.pop()
+        max_value = max(max_value, curr.val)
+
+        if curr.right is not None:
+            stack.append(curr.right)
+
+        if curr.left is not None:
+            stack.append(curr.left)
+    return max_value
 
 print(tree_max(root))
+
+
+# Given the root of a binary search tree, insert a new node with a given key and value into the tree. 
+# Return the root of the modified tree. The tree is sorted by key. If a node with the given key already exists, 
+# update the the existing key’s value. You do not need to maintain a balanced tree.
+
+# Evaluate the time complexity of your function.
+
+# Given a BST sorted by key, find the correct place to put a new node with a given key and value, return the new tree.
+# Recursive solution that has 2-3 base cases.
+
+class TreeNode():
+     def __init__(self, key, value, left=None, right=None):
+            self.key = key
+            self.val = value
+            self.left = left
+            self.right = right
+   
+def insert(root, key, value):
+    if not root:
+        return TreeNode(key, value)
+
+    if key > root.key:
+        root.right = insert(root.right, key, value)
+
+    elif key < root.key:
+        root.left = insert(root.left, key, value)
+
+    else:
+        root.val = value
+    
+    return root
